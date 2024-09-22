@@ -18,20 +18,20 @@ const PaymentForm = ({ clientSecret }) => {
 
     setIsLoading(true);
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: "https://localhost:5173/payment-success", 
-      },
-    });
+    // const { error } = await stripe.confirmPayment({
+    //   elements,
+    //   confirmParams: {
+    //     return_url: "https://localhost:5173/payment-success", 
+    //   },
+    // });
 
-    if (error) {
-      setCardError(error.message);
-      setIsLoading(false);
-    } else {
-      console.log("Payment successful");
-      navigate("/payment-success");
-    }
+    // if (error) {
+    //   setCardError(error.message);
+    //   setIsLoading(false);
+    // } else {
+    //   console.log("Payment successful");
+    //   navigate("/payment-success");
+    // }
   };
 
   return (
