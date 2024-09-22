@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+input {
+    outline: none;
+}
+.otp{
+    width: 50px !important;
+  height: 50px;
+  margin: 0 4px !important;
+  font-size: 2rem;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.otp::-webkit-outer-spin-button,
+.otp::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
