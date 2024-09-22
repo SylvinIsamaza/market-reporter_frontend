@@ -8,6 +8,8 @@ const Settings = () => {
   const[showSidebar,setShowSidebar]=useState(true)
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(1);
   const [activeTab, setActiveTab] = useState('profile');
+  const [copyToClipboardMessage,setCopyToClipBOardMessage]=useState("");
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -15,13 +17,20 @@ const Settings = () => {
     notifications: true,
     darkMode: false,
     referralCode: 'REF12345',
-    paymentMethod: 'card', // default payment method
+    paymentMethod: 'card', 
     cardNumber: '',
     expiryDate: '',
     cvv: '',
     paypalEmail: ''
   });
-
+  const handleCopyToClipboard = async() => {
+    await navigator.clipboard.writeText(formData.referralCode);
+    setCopyToClipBOardMessage("Copied to Clipboard");
+    setTimeout(() => {
+      setCopyToClipBOardMessage("")
+    },[2000])
+  }
+  
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -151,18 +160,20 @@ const Settings = () => {
               <div className="mb-6">
                 <p className="text-sm text-gray-700">
                   Share this referral code with your friends and earn rewards when they sign up!
-                </p>
-                <div className="mt-2 bg-gray-100 p-4 rounded-md">
-                  <span className="font-mono text-lg font-bold">{formData.referralCode}</span>
+                  </p>
+                  <div className="mt-2 flex justify-between bg-gray-100 p-4 rounded-md">
+                    
+                    <span className="font-mono text-lg font-bold">{formData.referralCode}</span>
+                    
                 </div>
               </div>
 
               <div className="flex justify-end">
-                <button
-                  type="button"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <button onClick={handleCopyToClipboard}
+                    type="button"
+                    className={`${copyToClipboardMessage!=""?"bg-green-600 hover:bg-green-600 focus:ring-green-500":" bg-blue-600  focus:ring-blue-500 hover:bg-blue-700"} text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2`}
                 >
-                  Copy Referral Code
+                    { copyToClipboardMessage?copyToClipboardMessage:"Copy Referral Code"} 
                 </button>
               </div>
             </div>

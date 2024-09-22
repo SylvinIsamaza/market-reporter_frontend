@@ -169,7 +169,7 @@ const MainSection = () => {
       try {
         setIsGenerating(true);
         
-        createReport({location:formData.location,cadastralReference:formData.cadastralReference,price:formData.announcedPrice,floorNumber:formData.floorNumber,nbrOfBaths:formData.numberOfBathrooms,renovationDetails:formData.renovation,totalSquareMeter:formData.squareMeters,propertyLink:formData.link,nbrOfRoom:formData.numberOfRooms})
+        // createReport({location:formData.location,cadastralReference:formData.cadastralReference,price:formData.announcedPrice,floorNumber:formData.floorNumber,nbrOfBaths:formData.numberOfBathrooms,renovationDetails:formData.renovation,totalSquareMeter:formData.squareMeters,propertyLink:formData.link,nbrOfRoom:formData.numberOfRooms})
         
       } catch (err) {
         setIsGenerating(false);

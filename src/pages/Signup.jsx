@@ -12,12 +12,14 @@ const Signup = () => {
   const { mutate: signup, isPending, error, } = useSignup(
     
   )
+  
   const handleSubmit = () => {
-    signup({
-      email,
-      password,
-      phone
-    })
+    // signup({
+    //   email,
+    //   password,
+    //   phone
+    // })
+    navigate("/verify-otp")
   }
   
   return (

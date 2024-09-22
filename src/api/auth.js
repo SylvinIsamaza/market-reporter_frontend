@@ -49,6 +49,7 @@ export const login = async (signupData) => {
 export const authenticate = async () => {
   try {
     const response = await client.get("/auth", { withCredentials: true })
+    console.log(response)
     return response.data.user
   } catch (error) {
     

@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import { IoCheckmarkSharp } from "react-icons/io5";
 
 const SelectPlan = () => {
   const navigate = useNavigate();
+  const [subscriptionType, setSubscriptionType] = useState("Monthly");
+
   const basicPlanFeatures = [
     "Reports Generation",
     "Downloading Reports",
@@ -16,6 +19,22 @@ const SelectPlan = () => {
     "AI Support Tools",
     "Personalised Dashboard",
   ];
+
+  // Pricing based on the subscription type
+  const prices = {
+    Monthly: {
+      basic: "$30",
+      advanced: "$60",
+    },
+    OneTime: {
+      basic: "$300",
+      advanced: "$600",
+    },
+  };
+  const handleSelectPlan = (planType) => {
+    navigate(`/payment?plan=${planType}&subscriptionType=${subscriptionType}`);
+  };
+
   return (
     <AuthLayout>
       <div className="h-full px-10 py-20 flex flex-col items-center gap-10 w-full">
@@ -25,15 +44,42 @@ const SelectPlan = () => {
             Choose a plan that suits your needs.
           </span>
         </div>
+
+        {/* Subscription Type Selector */}
         <div className="flex mt-5 gap-2 w-[25rem] h-[4.2rem] p-2 bg-primary rounded-full overflow-hidden">
-          <div className="w-1/2 flex items-center justify-center bg-white rounded-full cursor-pointer">
-            <span className="font-semibold">Monthly</span>
+          <div
+            className={`w-1/2 flex items-center justify-center ${
+              subscriptionType === "Monthly" ? "bg-white" : "bg-primary"
+            } rounded-full cursor-pointer`}
+            onClick={() => setSubscriptionType("Monthly")}
+          >
+            <span
+              className={`font-semibold ${
+                subscriptionType === "Monthly" ? "text-primary" : "text-white"
+              }`}
+            >
+              Monthly
+            </span>
           </div>
-          <div className="w-1/2 flex items-center justify-center rounded-full cursor-pointer">
-            <span className="font-semibold text-white">One time</span>
+          <div
+            className={`w-1/2 flex items-center justify-center ${
+              subscriptionType === "OneTime" ? "bg-white" : "bg-primary"
+            } rounded-full cursor-pointer`}
+            onClick={() => setSubscriptionType("OneTime")}
+          >
+            <span
+              className={`font-semibold ${
+                subscriptionType === "OneTime" ? "text-primary" : "text-white"
+              }`}
+            >
+              One time
+            </span>
           </div>
         </div>
+
+        {/* Subscription Plans */}
         <div className="flex justify-center gap-10 h-[30rem] w-full">
+          {/* Basic Plan */}
           <div className="w-[43%] cursor-pointer gap-10 flex flex-col bg-white py-10 px-6 rounded-md">
             <div className="flex flex-col gap-3">
               <h2 className="text-2xl font-semibold">Basic</h2>
@@ -41,7 +87,9 @@ const SelectPlan = () => {
                 Basic Plan with limited features
               </span>
             </div>
-            <span className="text-5xl font-semibold">$30</span>
+            <span className="text-5xl font-semibold">
+              {prices[subscriptionType].basic}
+            </span>
             <div className="flex flex-col gap-3">
               {basicPlanFeatures.map((el, index) => (
                 <div key={index} className="flex items-center gap-2">
@@ -51,18 +99,22 @@ const SelectPlan = () => {
               ))}
             </div>
             <button
-              onClick={() => navigate("/payment")}
+              onClick={() => handleSelectPlan("basic")}
               className="p-4 font-semibold bg-primary text-white rounded-md"
             >
               Select Plan
             </button>
           </div>
+
+          {/* Professional Plan */}
           <div className="w-[43%] flex flex-col cursor-pointer gap-10 bg-primary text-white p-10 rounded-md">
             <div className="flex flex-col gap-3">
               <h2 className="text-2xl font-semibold">Professional</h2>
               <span>Advanced Plan with multiple features</span>
             </div>
-            <span className="text-5xl font-semibold">$60</span>
+            <span className="text-5xl font-semibold">
+              {prices[subscriptionType].advanced}
+            </span>
             <div className="flex flex-col gap-3">
               {advancedPlanFeatures.map((el, index) => (
                 <div key={index} className="flex items-center gap-2">
@@ -72,7 +124,7 @@ const SelectPlan = () => {
               ))}
             </div>
             <button
-              onClick={() => navigate("/payment")}
+              onClick={() => handleSelectPlan("professional")}
               className="p-4 font-semibold bg-white text-primary rounded-md"
             >
               Select Plan

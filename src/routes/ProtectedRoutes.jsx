@@ -16,16 +16,19 @@ function ProtectedRoutes({ children }) {
     return;
     
   }
-
-
-  return (
-    <div>
-  {children}
-    </div>
+  if (data) {
+    console.log(data)
+    return (
+      <div>
+    {children}
+      </div>
+        
       
     
+    )
+  }
+
   
-  )
 }
 
 export default ProtectedRoutes

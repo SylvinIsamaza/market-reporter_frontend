@@ -11,10 +11,12 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const{mutate:login,isPending}=useLogin()
   const handleLogin = () => {
-    login({ email, password }, {
-      onSuccess:()=> {
-      navigate("/user-dashboard")   
-    }})
+    // login({ email, password }, {
+    //   onSuccess:()=> {
+    //   navigate("/user-dashboard")   
+    //   }
+    // })
+    navigate("/user-dashboard")  
   }
   return (
     <AuthLayout>

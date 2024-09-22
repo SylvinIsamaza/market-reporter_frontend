@@ -1,20 +1,40 @@
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import Paypal from "../assets/images/paypal.png";
 import { FaCreditCard } from "react-icons/fa6";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, PaymentElement } from '@stripe/react-stripe-js';
+import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
+import PaymentForm from "../components/PaymentForm";
+const stripeApiKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
+const stripePromise = loadStripe(stripeApiKey);
 
 const Payment = () => {
-  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(1);
+  const [clientSecret, setClientSecret] = useState("");
+
+  useEffect(() => {
+    const plan = searchParams.get("plan");
+    if (plan === "basic") {
+      setClientSecret(import.meta.env.VITE_STRIPE_BASIC_PLAN_KEY);
+    } else if (plan === "professional") {
+      setClientSecret(import.meta.env.VITE_STRIPE_PROFESSIONAL_PLAN_KEY);
+    }
+  }, [searchParams]);
+
+  const options = {
+    clientSecret,
+  };
+
   return (
     <AuthLayout>
       <div className="flex flex-col gap-10 max-w-[27rem]">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-semibold">Payment</h2>
           <span className="text-secondary text-sm">
-            To finalise your subscription, kindly complete your Payment Using a
-            valid credit/debit card number
+            To finalize your subscription, kindly complete your payment using a valid credit/debit card.
           </span>
         </div>
         <div className="flex flex-col gap-12">
@@ -26,7 +46,7 @@ const Payment = () => {
                 className="flex justify-between items-center cursor-pointer p-4 bg-white rounded-md"
               >
                 <div className="flex gap-3 items-center">
-                  <img src={Paypal} alt="" className="h-5" />
+                  <img src={Paypal} alt="Paypal" className="h-5" />
                   <span>Paypal</span>
                 </div>
                 <div
@@ -56,33 +76,30 @@ const Payment = () => {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-3">
-              <label>Card Holder Name</label>
-              <input className="p-4 outline-none rounded-md"></input>
-            </div>
-            <div className="flex flex-col gap-3">
-              <label>Card Number</label>
-              <input className="p-4 outline-none rounded-md"></input>
-            </div>
-            <div className="flex justify-between">
-              <div className="flex flex-col gap-3 w-[48%]">
-                <label>Expiry date</label>
-                <input
-                  type="date"
-                  className="p-4 outline-none rounded-md"
-                ></input>
-              </div>
-              <div className="flex flex-col gap-3 w-[48%]">
-                <label>CVV</label>
-                <input className="p-4 outline-none rounded-md"></input>
-              </div>
-            </div>
-            <button
-              onClick={() => navigate("/payment-success")}
-              className="p-4 bg-primary mt-4 text-white rounded-md font-semibold"
-            >
-              Pay now
-            </button>
+            {selectedPaymentMethod === 1 ? (
+              <PayPalScriptProvider options={{ "client-id": "YOUR_PAYPAL_CLIENT_ID" }}>
+                <PayPalButtons
+                  createOrder={(data, actions) => {
+                    return actions.order.create({
+                      purchase_units: [{
+                        amount: {
+                          value: "10.00"
+                        }
+                      }]
+                    });
+                  }}
+                  onApprove={async (data, actions) => {
+                    const details = await actions.order.capture();
+                    console.log("Transaction completed by " + details.payer.name.given_name);
+                    navigate("/payment-success");
+                  }}
+                />
+              </PayPalScriptProvider>
+            ) : (
+              <Elements stripe={stripePromise} options={options}>
+                <PaymentForm clientSecret={clientSecret} />
+              </Elements>
+            )}
           </div>
         </div>
       </div>

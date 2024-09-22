@@ -14,6 +14,7 @@ import Report from "./pages/Report";
 import Transaction from "./pages/Transaction";
 import Settings from "./pages/Setting";
 import CreditPage from "./pages/Credits";
+import AuthLayout from "./layouts/AuthLayout";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />}></Route>
         <Route path="/view-pdf" element={<PdfViewer/>}/>
-        <Route path="/user-dashboard" element={<UserDashboard />}></Route>
+        <Route path="/user-dashboard" element={<ProtectedRoutes><UserDashboard /></ProtectedRoutes>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/verify-otp" element={<VerifyOtp />}></Route>
