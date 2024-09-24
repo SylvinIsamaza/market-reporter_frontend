@@ -10,7 +10,7 @@ export const useSignup =() => {
  return useMutation({
     mutationKey:["signup"],
     mutationFn:register,
-    onSuccess: () => {
+   onSuccess: () => {
       navigate("/verify-otp")
     },
     onError: (error) => {

@@ -7,27 +7,55 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement } from '@stripe/react-stripe-js';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import PaymentForm from "../components/PaymentForm";
+import axios from "axios";
+import client from "../api/client";
 const stripeApiKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY;
 const stripePromise = loadStripe(stripeApiKey);
 
 const Payment = () => {
-  const [searchParams] = useSearchParams();
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(1);
+  const [searchParams] = useSearchParams();
   const [clientSecret, setClientSecret] = useState("");
-
+  const [loading,setLoading]=useState(false)
   useEffect(() => {
     const plan = searchParams.get("plan");
-    if (plan === "basic") {
-      setClientSecret(import.meta.env.VITE_STRIPE_BASIC_PLAN_KEY);
-    } else if (plan === "professional") {
-      setClientSecret(import.meta.env.VITE_STRIPE_PROFESSIONAL_PLAN_KEY);
+    const credits=searchParams.get("amount");
+    const subscriptionType=searchParams.get("subscriptionType")
+  
+    const createPaymentIntent = async () => {
+      try {
+        setLoading(true)
+        const response = await client.post(
+          "/payment/create-payment-intent",
+          {
+            plan: subscriptionType!=""?subscriptionType+ plan:""+ plan,
+            credits:credits
+          }, {
+            withCredentials:true
+          }
+        );
+        setClientSecret(response.data.client_secret);
+        setLoading(false)
+      } catch (error) {
+        console.error("Error fetching payment intent:", error);
+        setLoading(false)
+      }
+    };
+
+    if (plan) {
+      createPaymentIntent();
     }
   }, [searchParams]);
+
 
   const options = {
     clientSecret,
   };
 
+  if (loading) {
+    return(<div>Loading...</div>)
+  }
+  
   return (
     <AuthLayout>
       <div className="flex flex-col gap-10 max-w-[27rem]">
@@ -97,7 +125,7 @@ const Payment = () => {
               </PayPalScriptProvider>
             ) : (
               <Elements stripe={stripePromise} options={options}>
-                <PaymentForm clientSecret={clientSecret} />
+                  <PaymentForm clientSecret={clientSecret} />
               </Elements>
             )}
           </div>

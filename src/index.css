@@ -23,3 +23,7 @@ input {
 -webkit-appearance: none;
 margin: 0;
 }
+
+.hidden-scroll-container::-webkit-scrollbar{
+    display: none !important;
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { HiDocument } from "react-icons/hi2";
 import { MdAccountBalanceWallet, MdPending } from "react-icons/md";
@@ -8,6 +8,7 @@ import Report from "../Report";
 import { useCreateReport } from "../../hooks/report";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
+import client from "../../api/client";
 
 const renovationOptions = [
   "Total renovation apparently with no structural damage",
@@ -143,7 +144,27 @@ const MainSection = () => {
       }
     }
   };
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await client.get("/transaction/me",{withCredentials:true});
+        const fetchedPayments = response.data.slice(-5,).map(transaction => {
+          return {
+            id: transaction.paymentIntentId, 
+            plan: transaction.plan, 
+            date: new Date(transaction.createdAt).toLocaleDateString(), 
+            amount: transaction.amount, 
+            status: transaction.paymentStatus 
+          };
+        });
+        setPayments(fetchedPayments);
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
 
+    fetchTransactions();
+  }, []);
   const validate = () => {
     const newErrors = {};
     if (!formData.location && !formData.cadastralReference && !formData.link) {
@@ -431,12 +452,12 @@ const MainSection = () => {
               <tbody className="lg:border-gray-300">
                 {payments.map((payment) => (
                   <tr key={payment.id}>
-                    <td className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6">{payment.plan}</td>
+                    <td className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6">{payment.id}</td>
                     <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">{payment.date}</td>
                     <td className="whitespace-no-wrap py-4 text-right text-sm text-gray-600 lg:text-left">${payment.amount.toFixed(2)}</td>
                     <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
                       <div className={`inline-flex items-center rounded-full ${payment.status === 'Complete' ? 'bg-blue-600' : payment.status === 'Canceled' ? 'bg-red-200' : 'bg-blue-200'} py-2 px-3 text-xs text-white`}>
-                        {payment.status}
+                      {payment.status === 'Complete' ? 'Completed' : payment.status === 'Canceled' ? "Canceled" : 'Pending'}
                       </div>
                     </td>
                   </tr>

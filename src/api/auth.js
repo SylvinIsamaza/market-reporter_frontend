@@ -16,7 +16,7 @@ export const register = async (signupData) => {
         toast.error(error.response.data.message)
       }
       }).then(() => {
-      console.log(response)
+      return response.data
     })
     
     
@@ -68,9 +68,9 @@ export const logout = async () => {
 }
 
 
-export const verifyOTP = async (otp) => {
+export const verifyOTP = async (data) => {
   try {
-    const response = await client.post("/auth/verify-otp",{otp} ,{ withCredentials: true })
+    const response = await client.post("/auth/verify-otp",data ,{ withCredentials: true })
     return response.data.message 
   } catch (error) {
     

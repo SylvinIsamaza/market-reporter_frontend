@@ -9,8 +9,8 @@ const VerifyOtp = () => {
   const [otp, setOtp] = useState()
   const {mutate:verifyOTP,isPending}=useVerifyOTP()
   const handleSubmit = () => {
-    // verifyOTP(otp)
-    navigate("/select-plan")
+    verifyOTP({otp,email:localStorage.getItem("_user_email")})
+    // navigate("/select-plan")
   }
   return (
     <AuthLayout>

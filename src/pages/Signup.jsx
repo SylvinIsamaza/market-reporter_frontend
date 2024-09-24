@@ -14,12 +14,14 @@ const Signup = () => {
   )
   
   const handleSubmit = () => {
-    // signup({
-    //   email,
-    //   password,
-    //   phone
-    // })
-    navigate("/verify-otp")
+    localStorage.setItem("_user_email",email)
+    signup({
+      email,
+      password,
+      phone
+    })
+    // navigate("/verify-otp")
+    
   }
   
   return (

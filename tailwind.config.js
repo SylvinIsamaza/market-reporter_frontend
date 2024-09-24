@@ -6,7 +6,8 @@ export default {
     extend: {
       screens: {
         "500": "500px",
-        "800":"800px"
+        "800": "800px",
+        "1540":"1440px"
       },
       colors: {
         primary: "#2a66b4",
