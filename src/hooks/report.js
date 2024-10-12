@@ -11,7 +11,6 @@ export const useCreateReport = () => {
      console.log(data)
      navigate(`/view-pdf/?url=http://localhost:5000${data.reportUrl }`)
    },
-   retry:3
     
   })
   
