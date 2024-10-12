@@ -190,6 +190,9 @@ const MainSection = () => {
       }
     }
   };
+
+  const [transactions, setTransactions] = useState([]);
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -205,6 +208,7 @@ const MainSection = () => {
             status: transaction.paymentStatus,
           };
         });
+        setTransactions(fetchTransactions);
         setPayments(fetchedPayments);
       } catch (error) {
         console.error("Error fetching transactions:", error);
@@ -634,30 +638,30 @@ const MainSection = () => {
               </tr>
             </thead>
             <tbody className="lg:border-gray-300">
-              {payments.map((payment) => (
-                <tr key={payment.id}>
+              {transactions.map((transaction) => (
+                <tr key={transaction.id}>
                   <td className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6">
-                    {payment.id}
+                    {transaction.id}
                   </td>
                   <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
-                    {payment.date}
+                    {transaction.date}
                   </td>
                   <td className="whitespace-no-wrap py-4 text-right text-sm text-gray-600 lg:text-left">
-                    ${payment.amount.toFixed(2)}
+                    ${transaction.amount.toFixed(2)}
                   </td>
                   <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
                     <div
                       className={`inline-flex items-center rounded-full ${
-                        payment.status === "Complete"
+                        transaction.status === "Complete"
                           ? "bg-blue-600"
-                          : payment.status === "Canceled"
+                          : transaction.status === "Canceled"
                           ? "bg-red-200"
                           : "bg-blue-200"
                       } py-2 px-3 text-xs text-white`}
                     >
-                      {payment.status === "Complete"
+                      {transaction.status === "Complete"
                         ? "Completed"
-                        : payment.status === "Canceled"
+                        : transaction.status === "Canceled"
                         ? "Canceled"
                         : "Pending"}
                     </div>
