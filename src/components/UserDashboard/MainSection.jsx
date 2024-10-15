@@ -25,29 +25,32 @@ const renovationOptions = [
 ];
 
 const MainSection = () => {
-  const paymentData = [
-    {
-      id: 1,
-      plan: "Standard Plan - Feb 2022",
-      date: "07 February 2022",
-      amount: 59.0,
-      status: "Complete",
-    },
-    {
-      id: 2,
-      plan: "Standard Plan - Jan 2022",
-      date: "09 January 2022",
-      amount: 59.0,
-      status: "Canceled",
-    },
-    {
-      id: 3,
-      plan: "Basic Plan - Dec 2021",
-      date: "15 December 2021",
-      amount: 29.0,
-      status: "Complete",
-    },
-  ];
+  const [transactionsCsv, setTransactionsCsv] = useState([]);
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await client.get("/transaction/me", {
+          withCredentials: true,
+        });
+        const fetchedPayments = response.data.slice(-5).map((transaction) => {
+          return {
+            id: transaction.paymentIntentId,
+            plan: transaction.plan,
+            date: new Date(transaction.createdAt).toLocaleDateString(),
+            amount: transaction.amount,
+            status: transaction.paymentStatus,
+          };
+        });
+        setTransactionsCsv(fetchedPayments);
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
+
   const {
     provinces,
     loading: provincesLoading,
@@ -66,14 +69,13 @@ const MainSection = () => {
     error: streetsError,
   } = useFetchCallejero(selectedProvince, selectedMunicipio);
   const [selectedStreet, setSelectedStreet] = useState("");
-  const [payments, setPayments] = useState(paymentData);
   const [sortBy, setSortBy] = useState("Recent");
 
   const handleSort = (e) => {
     const value = e.target.value;
     setSortBy(value);
 
-    const sortedPayments = [...payments].sort((a, b) => {
+    const sortedPayments = [...transactionsCsv].sort((a, b) => {
       if (value === "Recent") {
         return new Date(b.date) - new Date(a.date);
       } else if (value === "Plan") {
@@ -87,12 +89,12 @@ const MainSection = () => {
       return 0;
     });
 
-    setPayments(sortedPayments);
+    setTransactionsCsv(sortedPayments);
   };
 
   const exportToCSV = (data, filename = "payments.csv") => {
     const csvRows = [];
-    const headers = ["Invoice", "Date", "Amount", "Status"];
+    const headers = ["Plan", "Date", "Amount", "Status"];
     csvRows.push(headers.join(","));
 
     data.forEach((payment) => {
@@ -104,6 +106,7 @@ const MainSection = () => {
       ];
       csvRows.push(row.join(","));
     });
+
     const csvData = new Blob([csvRows.join("\n")], { type: "text/csv" });
     const tempLink = document.createElement("a");
     tempLink.href = window.URL.createObjectURL(csvData);
@@ -208,8 +211,7 @@ const MainSection = () => {
             status: transaction.paymentStatus,
           };
         });
-        setTransactions(fetchTransactions);
-        setPayments(fetchedPayments);
+        setTransactions(fetchedPayments);;
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
@@ -597,7 +599,7 @@ const MainSection = () => {
               <button
                 type="button"
                 className="inline-flex cursor-pointer items-center rounded-lg border border-gray-400 bg-white py-2 px-3 text-sm font-medium text-gray-800 shadow hover:bg-gray-100 focus:shadow"
-                onClick={() => exportToCSV(payments)}
+                onClick={() => exportToCSV(transactionsCsv)}
               >
                 <svg
                   className="mr-1 h-4 w-4"
