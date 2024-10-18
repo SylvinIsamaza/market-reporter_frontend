@@ -29,7 +29,7 @@ function PdfViewer() {
  
       {pdfUrl ? (
         <iframe
-          src={pdfUrl}
+          src={`${pdfUrl}`}
           width="100%"
           className='h-[calc(100vh-100px)]'
           style={{ border: 'none' }}

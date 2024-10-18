@@ -2,11 +2,7 @@ import { useState } from "react";
 
 import { HiDocument } from "react-icons/hi2";
 import { MdAccountBalanceWallet, MdPending } from "react-icons/md";
-import { TbPlus } from "react-icons/tb";
-import { fillPdf } from "../../utils/fillPdf";
-import Report from "../Report";
-import { useCreateReport } from "../../hooks/report";
-import { useNavigate } from "react-router-dom";
+
 import Header from "../Header";
 
 const renovationOptions = [

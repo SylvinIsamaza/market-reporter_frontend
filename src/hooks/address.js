@@ -68,36 +68,7 @@ export function useFetchCallejero(province, municipio) {
   const [streets, setStreets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const roadTypeMap = {
-    CL: "Calle",
-    AV: "Avenida",
-    CR: "Carretera",
-    PL: "Plaza",
-    PS: "Paseo",
-    BL: "Bulevar",
-    TR: "Travesía",
-    CT: "Camino",
-    RON: "Ronda",
-    PG: "Paseo",
-    J: "Jardín",
-    CTRA: "Carretera",
-    CS: "Callejón",
-    LV: "Línea Verde",
-    LT: "Línea de Tránsito",
-    AG: "Avenida General",
-    PC: "Parque",
-    AP: "Acceso",
-    S: "Sendero",
-    AVDA: "Avenida",
-    AVDA: "Avenida",
-    PU: "Pueblo",
-    Z: "Zona",
-    M: "Metro",
-  };
-  
-  function getFullRoadType(abbreviation) {
-    return roadTypeMap[abbreviation] || "Unknown road type";
-  }
+ 
 
   useEffect(() => {
     if (province && municipio) {
