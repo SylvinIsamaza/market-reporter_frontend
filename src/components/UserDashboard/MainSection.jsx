@@ -150,12 +150,12 @@ const MainSection = () => {
     location: "",
     cadastralReference: "",
     link: "",
-    squareMeters: "",
+    squareMeters: 0,
     numberOfRooms: "",
     numberOfBathrooms: "",
     floorNumber: "",
     renovation: "",
-    announcedPrice: "",
+    announcedPrice: 0,
     pricePerMeter: "",
   };
   const [formData, setFormData] = useState(initialFormState);
@@ -204,51 +204,57 @@ const MainSection = () => {
       [name]: value 
     }));
   };
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await client.get("/transaction/me", {
-          withCredentials: true,
-        });
-        const fetchedPayments = response.data.slice(-5).map((transaction) => {
-          return {
-            id: transaction.paymentIntentId,
-            plan: transaction.plan,
-            date: new Date(transaction.createdAt).toLocaleDateString(),
-            amount: transaction.amount,
-            status: transaction.paymentStatus,
-          };
-        });
-        setTransactions(fetchedPayments);;
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      }
-    };
-
-    fetchTransactions();
-  }, []);
+  
   const validate = () => {
     const newErrors = {};
-    if (!formData.location && !formData.cadastralReference && !formData.link) {
-      newErrors.basic = "At least one basic detail must be provided.";
+  
+   
+    if (
+      ((!numero &&
+       !streets&&
+      !selectedMunicipio &&
+      !selectedProvince)||!formData.cadastralReference
+    )&&currentStep==1) {
+      newErrors.basic = "At least one of location or cadastral reference  must be provided.";
     }
-    if (!formData.renovation) {
+  
+    
+    if (!formData.renovation && currentStep === 2) {
       newErrors.renovation = "Please select one renovation option.";
     }
-    if (formData.announcedPrice && formData.announcedPrice <= 0) {
+  
+  
+    if (
+      formData.announcedPrice &&
+      formData.announcedPrice <= 0 &&
+      currentStep === 2
+    ) {
       newErrors.announcedPrice = "Announced Price must be a positive number.";
     }
-    if (formData.squareMeters && formData.squareMeters <= 0) {
+    if (
+      formData.squareMeters &&
+      formData.squareMeters <= 0 &&
+      currentStep === 2
+    ) {
       newErrors.squareMeters = "Square meters must be a positive number.";
     }
+  
     setErrors(newErrors);
+    
     return Object.keys(newErrors).length === 0;
   };
   
+  
 
   const handleSubmit = async (e) => {
-    if (currentStep != 4) {
-      setCurrentStep((curr)=>curr+1)
+   
+     if (currentStep != 4) {
+      
+      if (validate(currentStep)) {
+        setCurrentStep((curr)=>curr+1)
+      }
+       
+      
     }
     else {
       e.preventDefault();
@@ -271,7 +277,7 @@ const MainSection = () => {
           bloque,
           municipios: selectedMunicipio,
           province: selectedProvince,
-          location: location,
+         
           cadastralReference: formData.cadastralReference,
           price: formData.announcedPrice,
           floorNumber: formData.floorNumber,
@@ -280,7 +286,7 @@ const MainSection = () => {
           totalSquareMeter: formData.squareMeters,
           propertyLink: formData.link,
           nbrOfRoom: formData.numberOfRooms,
-          servicesThatMayInterestYou:interestedServices
+          servicesThatMayInterestYou:services
         });
       } catch (err) {
         setIsGenerating(false);
@@ -305,7 +311,20 @@ const MainSection = () => {
         return (
           <li
             key={index}
-            onClick={() => setCurrentStep(stepNumber)} 
+            onClick={() => {
+              if (currentStep<stepNumber) {
+                if (validate(currentStep)) {
+                  
+                  setCurrentStep(stepNumber)
+                }
+              }
+              else {
+                setCurrentStep(stepNumber
+
+                )
+              }
+              
+             }} 
             className={`cursor-pointer flex w-full  items-center ${
               isCompleted ? 'text-indigo-600' : 'text-gray-600'
             } sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:bllock after:mx-4 xl:after:mx-8`}
@@ -453,7 +472,12 @@ const MainSection = () => {
                   onChange={handleChange}
                   className="p-2 border rounded-md"
                 />
-              </div>
+                </div>
+                {errors.basic && (
+                  <span className="text-red-500 text-sm">
+                    {errors.basic}
+                  </span>
+                )}
             </div>
             }
             {
@@ -571,7 +595,8 @@ const MainSection = () => {
                   <div className={`p-[20px]  bg-slate-100 flex flex-col justify-between items-center h-[240px] rounded-md`}>
                     <img src={service.image} className={`w-[100px] ${index==0?"rounded-full":""} h-[100px]`} />
                     <p>{service.label}</p>
-                    <input onChange={(e)=>{handleServiceChange(service.value,e.target.value)}} name={service.value} placeholder={service.label} className="px-[20px] w-full py-[10px] border border-slate-300 rounded-md"></input>
+                    <input value={services[service.value]} onChange={(e)=>{handleServiceChange(service.value,e.target.value)}} name={service.value} placeholder={service.label} className="px-[20px] w-full py-[10px] border border-slate-300 rounded-md"></input>
+
                   </div>
                 ))}
               </div>
@@ -580,11 +605,11 @@ const MainSection = () => {
             {
               currentStep == 4 &&
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
-                {interestedServices.slice(10,17).map((service) => (
+                {interestedServices.slice(9,17).map((service) => (
                   <div className={`p-[20px]  bg-slate-100 flex flex-col justify-between items-center h-[240px] rounded-md`}>
                     <img src={service.image} className={`w-[100px]  h-[100px]`} />
                     <p>{service.label}</p>
-                    <input onChange={(e)=>{handleServiceChange(service.value,e.target.value)}} name={service.value} placeholder={service.label} className="px-[20px] w-full py-[10px] border border-slate-300 rounded-md"></input>
+                    <input value={services[service.value]} onChange={(e)=>{handleServiceChange(service.value,e.target.value)}} name={service.value} placeholder={service.label} className="px-[20px] w-full py-[10px] border border-slate-300 rounded-md"></input>
                   </div>
                 ))}
               </div>
@@ -612,7 +637,7 @@ const MainSection = () => {
               
               {currentStep!=1&&currentStep!=2?<button
                onClick={() => {
-                setCurrentStep((curr)=>curr+1)
+               currentStep<4&&setCurrentStep((curr)=>curr+1)
                }}
                 className="mt-4 p-2 bg-slate-300 text-black  w-full rounded-md"
               >
