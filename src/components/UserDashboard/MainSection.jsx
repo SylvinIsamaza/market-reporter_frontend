@@ -198,7 +198,12 @@ const MainSection = () => {
   };
 
   const [transactions, setTransactions] = useState([]);
-
+  const handleServiceChange = (name, value) => {
+    setServices((curr) => ({
+      ...curr,   
+      [name]: value 
+    }));
+  };
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
