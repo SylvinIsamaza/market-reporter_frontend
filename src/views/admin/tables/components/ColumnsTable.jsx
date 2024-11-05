@@ -1,6 +1,6 @@
 import React from "react";
-import CardMenu from "components/card/CardMenu";
-import Card from "components/card";
+import CardMenu from "../components/dashboard/card/CardMenu";
+import Card from "../components/dashboard/card";
 
 import {
   createColumnHelper,

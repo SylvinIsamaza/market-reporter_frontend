@@ -1,8 +1,7 @@
-import CardMenu from "components/card/CardMenu";
-import React from "react";
-import Checkbox from "components/checkbox";
+import CardMenu from "../components/dashboard/card/CardMenu";
+import Checkbox from "../components/dashboard/checkbox";
 import { MdDragIndicator, MdCheckCircle } from "react-icons/md";
-import Card from "components/card";
+import Card from "../components/dashboard/card";
 
 const TaskCard = () => {
   return (

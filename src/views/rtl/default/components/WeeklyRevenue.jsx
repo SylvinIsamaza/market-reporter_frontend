@@ -1,5 +1,5 @@
-import Card from "components/card";
-import BarChart from "components/charts/BarChart";
+import Card from "../components/dashboard/card";
+import BarChart from "../components/dashboard/charts/BarChart";
 import {
   barChartDataWeeklyRevenue,
   barChartOptionsWeeklyRevenue,
