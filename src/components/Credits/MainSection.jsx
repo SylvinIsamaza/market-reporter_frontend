@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { HiDocument } from "react-icons/hi2";
-import { MdAccountBalanceWallet } from "react-icons/md";
-import client from "../../api/client";
+import { MdAccountBalanceWallet, MdPending } from "react-icons/md";
+
 import Header from "../Header";
 
 const renovationOptions = [

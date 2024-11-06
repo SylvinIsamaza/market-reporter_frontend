@@ -3,19 +3,18 @@ import { useEffect, useState } from "react";
 import { HiDocument } from "react-icons/hi2";
 import { MdAccountBalanceWallet, MdPending } from "react-icons/md";
 import { TbPlus } from "react-icons/tb";
-import { fillPdf } from "../../utils/fillPdf";
+
 import Report from "../Report";
 import { useCreateReport } from "../../hooks/report";
-import { useNavigate } from "react-router-dom";
 import Header from "../Header";
-import client from "../../api/client";
 import { Combobox } from "../Combobox";
 import {
   useFetchCallejero,
   useFetchMunicipios,
   useFetchProvincias,
 } from "../../hooks/address";
-
+import { exportToCSV } from "../../utils/csv";
+import { interestedServices } from "../../data/static";
 const renovationOptions = [
   "Total renovation apparently with no structural damage",
   "Partial renovation apparently with no structural damage",
@@ -137,22 +136,24 @@ const MainSection = () => {
   const [errors, setErrors] = useState({});
   const [observations, setObservations] = useState("");
   const [reportModal, setReportModal] = useState(false);
-
   const [numero, setNumero] = useState("");
   const [planta, setPlanta] = useState("");
   const [puerta, setPuerta] = useState("");
   const [escalera, setEscalera] = useState("");
   const [bloque, setBloque] = useState("");
+  const [currentStep, setCurrentStep] = useState(1)
+  const steps = ['Basic Details', 'Property Details', 'Interested Services'];
+  const [services,setServices]=useState({})
   const initialFormState = {
     location: "",
     cadastralReference: "",
     link: "",
-    squareMeters: "",
+    squareMeters: 0,
     numberOfRooms: "",
     numberOfBathrooms: "",
     floorNumber: "",
     renovation: "",
-    announcedPrice: "",
+    announcedPrice: 0,
     pricePerMeter: "",
   };
   const [formData, setFormData] = useState(initialFormState);
@@ -195,51 +196,66 @@ const MainSection = () => {
   };
 
   const [transactions, setTransactions] = useState([]);
-
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await client.get("/transaction/me", {
-          withCredentials: true,
-        });
-        const fetchedPayments = response.data.slice(-5).map((transaction) => {
-          return {
-            id: transaction.paymentIntentId,
-            plan: transaction.plan,
-            date: new Date(transaction.createdAt).toLocaleDateString(),
-            amount: transaction.amount,
-            status: transaction.paymentStatus,
-          };
-        });
-        setTransactions(fetchedPayments);;
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      }
-    };
-
-    fetchTransactions();
-  }, []);
+  const handleServiceChange = (name, value) => {
+    setServices((curr) => ({
+      ...curr,   
+      [name]: value 
+    }));
+  };
+  
   const validate = () => {
     const newErrors = {};
-    if (!formData.location && !formData.cadastralReference && !formData.link) {
-      newErrors.basic = "At least one basic detail must be provided.";
+  
+   
+    if (
+      ((!numero &&
+       !streets&&
+      !selectedMunicipio &&
+      !selectedProvince)||!formData.cadastralReference
+    )&&currentStep==1) {
+      newErrors.basic = "At least one of location or cadastral reference  must be provided.";
     }
-    if (!formData.renovation) {
+  
+    
+    if (!formData.renovation && currentStep === 2) {
       newErrors.renovation = "Please select one renovation option.";
     }
-    if (formData.announcedPrice && formData.announcedPrice <= 0) {
+  
+  
+    if (
+      formData.announcedPrice &&
+      formData.announcedPrice <= 0 &&
+      currentStep === 2
+    ) {
       newErrors.announcedPrice = "Announced Price must be a positive number.";
     }
-    if (formData.squareMeters && formData.squareMeters <= 0) {
+    if (
+      formData.squareMeters &&
+      formData.squareMeters <= 0 &&
+      currentStep === 2
+    ) {
       newErrors.squareMeters = "Square meters must be a positive number.";
     }
+  
     setErrors(newErrors);
+    
     return Object.keys(newErrors).length === 0;
   };
+  
+  
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(formData);
+   
+     if (currentStep != 4) {
+      
+      if (validate(currentStep)) {
+        setCurrentStep((curr)=>curr+1)
+      }
+       
+      
+    }
+    else {
+      e.preventDefault();
     if (validate()) {
       try {
         setIsGenerating(true);
@@ -259,7 +275,7 @@ const MainSection = () => {
           bloque,
           municipios: selectedMunicipio,
           province: selectedProvince,
-          location: location,
+         
           cadastralReference: formData.cadastralReference,
           price: formData.announcedPrice,
           floorNumber: formData.floorNumber,
@@ -268,21 +284,70 @@ const MainSection = () => {
           totalSquareMeter: formData.squareMeters,
           propertyLink: formData.link,
           nbrOfRoom: formData.numberOfRooms,
+          servicesThatMayInterestYou:services
         });
       } catch (err) {
         setIsGenerating(false);
       }
     }
+    }
+    
   };
 
   return (
     <div className="lg:ml-[22rem] h-full overflow-scroll flex  flex-col flex-grow bg-slate-100">
       {reportModal && (
-        <div className="fixed flex items-center justify-center left-0 z-10 h-screen w-screen bg-[rgba(0,0,0,.6)]">
-          <div className="max-h-[90vh] overflow-y-auto h-[90vh] w-[90vw] md:w-[40rem] p-8 bg-white rounded-md flex flex-col gap-6">
-            <h2 className="text-xl font-semibold">Fill required report Info</h2>
-            <div className="w-full flex flex-col gap-4">
-              <span className="font-semibold">1. Basic Details</span>
+        <dialog className="fixed flex items-center justify-center left-0 z-[300] h-screen w-screen bg-[rgba(0,0,0,.6)]">
+          <div className="md:max-h-[90vh] overflow-y-auto h-screen w-[100vw] lg:w-[calc(100vw-600px)] md:w-[80%] lg:min-w-[600px] max-w-[950px] p-8 bg-white rounded-md flex flex-col gap-6">
+          <h2 className="text-xl font-semibold">Fill required report Info</h2>
+          <ol className="flex items-center   w-full text-sm text-gray-500 font-medium sm:text-base">
+      {steps.map((step, index) => {
+        const stepNumber = index + 1;
+        const isCurrent = stepNumber === currentStep;
+        const isCompleted = stepNumber < currentStep;
+
+        return (
+          <li
+            key={index}
+            onClick={() => {
+              if (currentStep<stepNumber) {
+                if (validate(currentStep)) {
+                  
+                  setCurrentStep(stepNumber)
+                }
+              }
+              else {
+                setCurrentStep(stepNumber
+
+                )
+              }
+              
+             }} 
+            className={`cursor-pointer flex w-full  items-center ${
+              isCompleted ? 'text-indigo-600' : 'text-gray-600'
+            } sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:bllock after:mx-4 xl:after:mx-8`}
+          >
+            <div className="flex md:flex-row flex-col items-center whitespace-nowrap  sm:after:hidden after:mx-2">
+              <span
+                className={`w-6 h-6 border rounded-full flex justify-center items-center mr-3 lg:w-10 lg:h-10 ${
+                  isCompleted
+                    ? 'bg-indigo-600 text-white border-indigo-200'
+                    : isCurrent
+                    ? 'bg-indigo-600 text-white'
+                    : 'bg-gray-100 border-gray-200'
+                }`}
+              >
+                {stepNumber}
+              </span>
+              <p className="text-center text-wrap md:w-fit">{step}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+            {
+              currentStep==1&&<div className="w-full flex flex-col gap-4">
+           
               <p className="font-bold text-[20px]">Location</p>
 
               <div className="flex md:flex-row flex-col items-start gap-[10px]">
@@ -405,10 +470,18 @@ const MainSection = () => {
                   onChange={handleChange}
                   className="p-2 border rounded-md"
                 />
-              </div>
+                </div>
+                {errors.basic && (
+                  <span className="text-red-500 text-sm">
+                    {errors.basic}
+                  </span>
+                )}
             </div>
-            <div className="w-full flex flex-col gap-4">
-              <span className="font-semibold">2. Property Details</span>
+            }
+            {
+              currentStep == 2 && <>
+                <div className="w-full flex flex-col gap-4">
+              <span className="font-semibold">Property Details</span>
               <div className="flex flex-col gap-2">
                 <label className="font-semibold">Square meters m&sup2;:</label>
                 <input
@@ -461,7 +534,7 @@ const MainSection = () => {
               </div>
             </div>
             <div className="w-full flex flex-col gap-4">
-              <span className="font-semibold">3. Renovation Details</span>
+              <span className="font-semibold">Renovation Details</span>
               {renovationOptions.map((option, idx) => (
                 <div key={idx} className="flex items-center gap-2">
                   <input
@@ -482,7 +555,7 @@ const MainSection = () => {
               )}
             </div>
             <div className="w-full flex flex-col gap-4">
-              <span className="font-semibold">4. Price Details</span>
+              <span className="font-semibold"> Price Details</span>
               <div className="flex flex-col gap-2">
                 <label className="font-semibold">Announced Price:</label>
                 <input
@@ -511,26 +584,39 @@ const MainSection = () => {
                 />
               </div>
             </div>
-            {isSearching ? (
-              <span>Searching...</span>
-            ) : isGenerating ? (
-              <span>Generating...</span>
-            ) : (
-              observations && (
-                <div className="w-full flex flex-col gap-4">
-                  <label className="font-semibold">
-                    Generated Observations:
-                  </label>
-                  <textarea
-                    value={observations}
-                    readOnly
-                    className="w-full h-[20rem] p-4 border rounded-md"
-                  />
-                </div>
-              )
-            )}
-            <div className="flex gap-[30px]">
-              <button
+              </>
+            }
+            {
+              currentStep == 3 &&
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                {interestedServices.slice(0,9).map((service,index) => (
+                  <div className={`p-[20px]  bg-slate-100 flex flex-col justify-between items-center h-[240px] rounded-md`}>
+                    <img src={service.image} className={`w-[100px] ${index==0?"rounded-full":""} h-[100px]`} />
+                    <p>{service.label}</p>
+                    <input value={services[service.value]} onChange={(e)=>{handleServiceChange(service.value,e.target.value)}} name={service.value} placeholder={service.label} className="px-[20px] w-full py-[10px] border border-slate-300 rounded-md"></input>
+
+                  </div>
+                ))}
+              </div>
+              
+            }
+            {
+              currentStep == 4 &&
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+                {interestedServices.slice(9,17).map((service) => (
+                  <div className={`p-[20px]  bg-slate-100 flex flex-col justify-between items-center h-[240px] rounded-md`}>
+                    <img src={service.image} className={`w-[100px]  h-[100px]`} />
+                    <p>{service.label}</p>
+                    <input value={services[service.value]} onChange={(e)=>{handleServiceChange(service.value,e.target.value)}} name={service.value} placeholder={service.label} className="px-[20px] w-full py-[10px] border border-slate-300 rounded-md"></input>
+                  </div>
+                ))}
+              </div>
+            }
+            
+            
+          
+            <div className="flex flex-col md:flex-row md:gap-[30px] gap-[5px]">
+            <button
                 onClick={() => {
                   setReportModal(false);
                 }}
@@ -538,16 +624,35 @@ const MainSection = () => {
               >
                 Cancel
               </button>
+              {currentStep!=1&&<button
+                onClick={() => {
+                 setCurrentStep((curr)=>curr-1)
+                }}
+                className="mt-4 p-2 bg-slate-300 text-black  w-full rounded-md"
+              >
+                Back
+              </button>}
+              
+              {currentStep!=1&&currentStep!=2?<button
+               onClick={() => {
+               currentStep<4&&setCurrentStep((curr)=>curr+1)
+               }}
+                className="mt-4 p-2 bg-slate-300 text-black  w-full rounded-md"
+              >
+                Skip
+              </button>:""}
+             
+
               <button
                 onClick={handleSubmit}
                 type="submit"
                 className="mt-4 p-2 w-full bg-primary text-white rounded-md"
               >
-                Submit
+               {currentStep!=4?"Next":"Submit"} 
               </button>
             </div>
           </div>
-        </div>
+        </dialog>
       )}
       <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
       <div className="flex md:flex-row flex-col flex-wrap gap-[10px] justify-between p-8 w-full">
