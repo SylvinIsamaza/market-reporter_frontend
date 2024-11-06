@@ -7,7 +7,6 @@ import { TbPlus } from "react-icons/tb";
 import Report from "../Report";
 import { useCreateReport } from "../../hooks/report";
 import Header from "../Header";
-
 import { Combobox } from "../Combobox";
 import {
   useFetchCallejero,
@@ -16,7 +15,6 @@ import {
 } from "../../hooks/address";
 import { exportToCSV } from "../../utils/csv";
 import { interestedServices } from "../../data/static";
-
 const renovationOptions = [
   "Total renovation apparently with no structural damage",
   "Partial renovation apparently with no structural damage",
