@@ -1,8 +1,8 @@
 import React from "react";
-import Dropdown from "components/dropdown";
+import Dropdown from "@/components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import navbarimage from "assets/img/layout/Navbar.png";
+import navbarimage from "@/assets/img/layout/Navbar.png";
 import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
@@ -10,7 +10,7 @@ import {
   IoMdNotificationsOutline,
   IoMdInformationCircleOutline,
 } from "react-icons/io";
-import avatar from "assets/img/avatars/avatar4.png";
+import avatar from "@/assets/img/avatars/avatar4.png";
 
 const Navbar = (props) => {
   const { onOpenSidenav, brandText } = props;
@@ -112,7 +112,9 @@ const Navbar = (props) => {
               </button>
             </div>
           }
-          classNames={"py-2 top-4 left-0 -start-[230px] md:-start-[440px] w-max"}
+          classNames={
+            "py-2 top-4 left-0 -start-[230px] md:-start-[440px] w-max"
+          }
         />
         {/* start Horizon PRO */}
         <Dropdown
@@ -154,7 +156,9 @@ const Navbar = (props) => {
               </a>
             </div>
           }
-          classNames={"py-2 top-6 left-0 -start-[250px] md:-start-[330px] w-max"}
+          classNames={
+            "py-2 top-6 left-0 -start-[250px] md:-start-[330px] w-max"
+          }
           animation="origin-[75%_0%] md:origin-top-end transition-all duration-300 ease-in-out"
         />
         <div

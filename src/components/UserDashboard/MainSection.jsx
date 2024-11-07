@@ -277,7 +277,7 @@ const MainSection = () => {
           province: selectedProvince,
          
           cadastralReference: formData.cadastralReference,
-          price: formData.announcedPrice,
+          price: parseInt(formData.announcedPrice),
           floorNumber: formData.floorNumber,
           nbrOfBaths: formData.numberOfBathrooms,
           renovationDetails: formData.renovation,
@@ -295,9 +295,9 @@ const MainSection = () => {
   };
 
   return (
-    <div className="lg:ml-[22rem] h-full overflow-scroll flex  flex-col flex-grow bg-slate-100">
+    <div className=" flex  flex-col flex-grow bg-slate-100">
       {reportModal && (
-        <dialog className="fixed flex items-center justify-center left-0 z-[300] h-screen w-screen bg-[rgba(0,0,0,.6)]">
+        <dialog className="fixed flex items-center justify-center left-0 z-[300] !h-screen mt-[-100px] w-screen bg-[rgba(0,0,0,.6)]">
           <div className="md:max-h-[90vh] overflow-y-auto h-screen w-[100vw] lg:w-[calc(100vw-600px)] md:w-[80%] lg:min-w-[600px] max-w-[950px] p-8 bg-white rounded-md flex flex-col gap-6">
           <h2 className="text-xl font-semibold">Fill required report Info</h2>
           <ol className="flex items-center   w-full text-sm text-gray-500 font-medium sm:text-base">
@@ -654,7 +654,7 @@ const MainSection = () => {
           </div>
         </dialog>
       )}
-      <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+    
       <div className="flex md:flex-row flex-col flex-wrap gap-[10px] justify-between p-8 w-full">
         {dashboardData.map((el, index) => (
           <div

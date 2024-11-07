@@ -2,22 +2,24 @@ import { useState } from "react";
 import AuthLayout from "../layouts/AuthLayout";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../hooks/auth";
-import Spinner from "../components/Spinner";
-
+import Spinner from "@/components/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const{mutate:login,isPending}=useLogin()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { mutate: login, isPending } = useLogin();
   const handleLogin = () => {
-    login({ email, password }, {
-      onSuccess:()=> {
-      navigate("/user-dashboard")   
+    login(
+      { email, password },
+      {
+        onSuccess: () => {
+          navigate("/user-dashboard");
+        },
       }
-    })
-    // navigate("/user-dashboard")  
-  }
+    );
+    // navigate("/user-dashboard")
+  };
   return (
     <AuthLayout>
       <div className="flex 500:h-fit h-screen 500:w-[500px]   w-full flex-col gap-5  py-10 px-8 bg-white rounded-md">
@@ -26,7 +28,9 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <label className="font-semibold">Correo electrónico:</label>
             <input
-              onChange={(e)=>{setEmail(e.target.value)}}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
               type="email"
               className="outline-none rounded-md border px-4 py-3"
               placeholder="ejemplo@gmail.com"
@@ -35,7 +39,7 @@ const Login = () => {
           <div className="flex flex-col gap-2">
             <label className="font-semibold">Contraseña:</label>
             <input
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="outline-none rounded-md border px-4 py-3"
               placeholder="Contraseña"
@@ -52,8 +56,11 @@ const Login = () => {
           </div>
         </div>
 
-        <button  onClick={handleLogin} className="rounded-md gap-[10px] bg-primary flex items-center justify-center text-white p-4 font-semibold">
-      {isPending&&<Spinner/>}    Iniciar sesión
+        <button
+          onClick={handleLogin}
+          className="rounded-md gap-[10px] bg-primary flex items-center justify-center text-white p-4 font-semibold"
+        >
+          {isPending && <Spinner />} Iniciar sesión
         </button>
         <span className="text-center">
           ¿No tienes una cuenta?{" "}

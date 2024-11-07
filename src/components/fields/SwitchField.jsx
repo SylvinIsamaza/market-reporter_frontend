@@ -1,4 +1,4 @@
-import Switch from "../components/dashboard/switch";
+import Switch from "@/components/switch";
 
 const SwitchField = (props) => {
   const { id, label, desc, mt, mb } = props;

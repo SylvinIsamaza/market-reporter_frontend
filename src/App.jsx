@@ -8,20 +8,22 @@ import Payment from "./pages/Payment";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Landing from "./pages/Landing";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
-
+import AdminLayout from "./layouts/admin";
 import PdfViewer from "./pages/PdfViewer";
 import Report from "./pages/Report";
 import Transaction from "./pages/Transaction";
 import Settings from "./pages/Setting";
 import CreditPage from "./pages/Credits";
 import AuthLayout from "./layouts/AuthLayout";
+import Dashboard from "./views/admin/default";
+import UserLayout from "./layouts/user";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />}></Route>
-        <Route path="/view-pdf" element={<PdfViewer/>}/>
+       
         <Route path="/user-dashboard" element={<ProtectedRoutes><UserDashboard /></ProtectedRoutes>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
@@ -33,6 +35,8 @@ function App() {
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/credits" element={<CreditPage />}></Route>
         <Route path="/payment-success" element={<PaymentSuccess />}></Route>
+        <Route path="admin/*" element={<AdminLayout><Dashboard /></AdminLayout>} />
+        <Route path="user/*" element={<UserLayout><Dashboard /></UserLayout>} />
     </Routes>
     </BrowserRouter>
   )

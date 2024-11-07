@@ -98,10 +98,9 @@ const MainSection = () => {
   ];
 
   return (
-    <div className="lg:ml-[22rem] h-full overflow-scroll flex  flex-col flex-grow bg-slate-100">
-      <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+    <div className="flex  flex-col flex-grow bg-slate-100">
       <div className="flex md:flex-row flex-col flex-wrap gap-[10px] justify-between p-8 w-full">
-        {dashboardData.map((el, index) => (
+      {dashboardData.map((el, index) => (
           <div
             key={index}
             className="h-[12rem] lg:w-[48%] w-full gap-8 px-4 py-5 flex bg-white border rounded-md cursor-pointer"

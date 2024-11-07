@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import Navbar from "../components/dashboard/navbar";
-import Sidebar from "../components/dashboard/sidebar";
-import Footer from "../components/dashboard/footer/Footer";
-import routes from "routes.js";
+import Navbar from "@/components/navbar";
+import Sidebar from "@/components/sidebar";
+import Footer from "@/components/footer/Footer";
+import routes from "@/routes/route";
 
 export default function Admin(props) {
   const { ...rest } = props;
@@ -75,18 +75,15 @@ export default function Admin(props) {
               secondary={getActiveNavbar(routes)}
               {...rest}
             />
-            <div className="pt-5s mx-auto mb-auto h-full min-h-[84vh] p-2 md:pr-2">
+            <div className="pt-5s mx-auto mb-auto h-full min-h-[calc(100vh-200px)] p-2 md:pr-2">
               <Routes>
                 {getRoutes(routes)}
 
                 <Route
                   path="/"
-                  element={<Navigate to="/admin/default" replace />}
+                  element={<Navigate to="/admin" replace />}
                 />
               </Routes>
-            </div>
-            <div className="p-3">
-              <Footer />
             </div>
           </div>
         </main>

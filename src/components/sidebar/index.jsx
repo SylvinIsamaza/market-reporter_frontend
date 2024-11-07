@@ -3,8 +3,8 @@
 import { HiX } from "react-icons/hi";
 import Links from "./components/Links";
 
-import SidebarCard from "components/sidebar/componentsrtl/SidebarCard";
-import routes from "routes.js";
+import SidebarCard from "@/components/sidebar/componentsrtl/SidebarCard";
+import routes from "@/routes/route";
 
 const Sidebar = ({ open, onClose }) => {
   return (
