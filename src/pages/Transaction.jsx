@@ -93,7 +93,7 @@ const Transaction = () => {
 
 
         <div className="mx-auto w-full flex flex-col h-[calc(100vh-200px)] mt-8 px-[10px] md:px-[40px]">
-          <div className="sm:flex sm:items-center sm:justify-between flex-col sm:flex-row">
+          <div className="sm:flex sm:items-center  sm:justify-between flex-col sm:flex-row">
             <p className="flex-1 text-base font-bold text-gray-900">
               Latest Payments
             </p>

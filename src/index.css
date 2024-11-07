@@ -92,7 +92,7 @@ margin: 0;
   }
 
   .dark {
-    --background: 224 71% 4%;
+    --background: 240, 5%, 11%;
     --foreground: 213 31% 91%;
 
     --muted: 223 47% 11%;
@@ -123,4 +123,11 @@ margin: 0;
 
     --radius: 0.5rem;
   }
+}
+svg{
+  background: transparent  !important;
+}
+
+input{
+  @apply dark:bg-navy-700 border-none
 }

@@ -1,8 +1,6 @@
 import React from "react";
-import MainDashboard from "@/views/admin/default";
-
 import Profile from "@/views/admin/profile";
-import DataTables from "@/views/admin/tables";
+
 
 import {
   MdHome,
@@ -26,7 +24,7 @@ const routes = [
   {
     name: "Dashboard",
     layout: "/user",
-    path: "/dashboard",
+    path: "dashboard",
     icon: <MdHome className="h-6 w-6" />,
     component: <ProtectedRoutes><UserDashboard /></ProtectedRoutes>,
   },
@@ -46,7 +44,7 @@ const routes = [
   },
   {
     name: "Profile",
-    layout: "/admin",
+    layout: "/user",
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,

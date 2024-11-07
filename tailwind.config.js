@@ -104,17 +104,11 @@ module.exports = {
               "accordion-down": "accordion-down 0.2s ease-out",
               "accordion-up": "accordion-up 0.2s ease-out",
             },
-            screens: {
-                      "500": "500px",
-                      "800": "800px",
-                      "1540":"1440px"
-                    },
+     
     container: {
             center: true,
             padding: "2rem",
-            screens: {
-              "2xl": "1400px",
-            },
+ 
           },
     extend: {
       width: {
@@ -250,6 +244,10 @@ module.exports = {
       "3xl-max": { max: "1600px" },
       "4xl": "1850px",
       "4xl-max": { max: "1850px" },
+      "500": "500px",
+      
+                      "800": "800px",
+                      "1540":"1440px"
     },
     colors: () => ({
      

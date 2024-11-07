@@ -49,11 +49,11 @@ export const Combobox = ({
   }, [open]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative x w-full">
       {/* Combobox Button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="w-full flex items-center justify-between border border-gray-300 bg-white px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:opacity-50"
+        className="w-full flex items-center justify-between border dark:bg-navy-900 dark:border-navy-700  border-gray-300 bg-white px-3 py-2 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-slate-200 disabled:opacity-50"
         aria-expanded={open}
         role="combobox"
         disabled={disabled || isLoading}
@@ -69,7 +69,7 @@ export const Combobox = ({
       </button>
 
       {/* Error Message */}
-      {error && <span className="text-red-500 text-sm">{error}</span>}
+      {error && <span className="text-red-500 dark:text-red-300 text-sm">{error}</span>}
 
       {/* Dropdown Menu */}
       {open && !isLoading && (

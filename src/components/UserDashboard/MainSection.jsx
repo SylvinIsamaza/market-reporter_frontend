@@ -295,10 +295,10 @@ const MainSection = () => {
   };
 
   return (
-    <div className=" flex  flex-col flex-grow bg-slate-100">
+    <div className=" flex bg-transparent flex-col flex-grow bg-slate-100">
       {reportModal && (
         <dialog className="fixed flex items-center justify-center left-0 z-[300] !h-screen mt-[-100px] w-screen bg-[rgba(0,0,0,.6)]">
-          <div className="md:max-h-[90vh] overflow-y-auto h-screen w-[100vw] lg:w-[calc(100vw-600px)] md:w-[80%] lg:min-w-[600px] max-w-[950px] p-8 bg-white rounded-md flex flex-col gap-6">
+          <div className="md:max-h-[90vh] overflow-y-auto h-screen w-[100vw] lg:w-[calc(100vw-600px)] md:w-[80%] dark:text-white lg:min-w-[600px] max-w-[950px] p-8 bg-white dark:bg-navy-900 rounded-md flex flex-col gap-6">
           <h2 className="text-xl font-semibold">Fill required report Info</h2>
           <ol className="flex items-center   w-full text-sm text-gray-500 font-medium sm:text-base">
       {steps.map((step, index) => {
@@ -329,17 +329,17 @@ const MainSection = () => {
           >
             <div className="flex md:flex-row flex-col items-center whitespace-nowrap  sm:after:hidden after:mx-2">
               <span
-                className={`w-6 h-6 border rounded-full flex justify-center items-center mr-3 lg:w-10 lg:h-10 ${
+                className={`w-6 h-6 dark:border-none border rounded-full flex justify-center items-center mr-3 lg:w-10 lg:h-10 ${
                   isCompleted
-                    ? 'bg-indigo-600 text-white border-indigo-200'
+                    ? 'bg-indigo-600 dark:bg-navy-200 dark:text-gray-800  text-white dr border-indigo-200'
                     : isCurrent
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-100 border-gray-200'
+                    ? 'bg-indigo-600 dark:bg-navy-200 dark:text-gray-800  text-white'
+                    : 'bg-gray-100 dark:bg-navy-700 border-gray-200'
                 }`}
               >
                 {stepNumber}
               </span>
-              <p className="text-center text-wrap md:w-fit">{step}</p>
+              <p className="text-center dark:text-navy-200 text-wrap md:w-fit">{step}</p>
             </div>
           </li>
         );
@@ -620,7 +620,7 @@ const MainSection = () => {
                 onClick={() => {
                   setReportModal(false);
                 }}
-                className="mt-4 p-2 bg-slate-300 text-black  w-full rounded-md"
+                className="mt-4 p-2 bg-gray-400 text-black  w-full rounded-md"
               >
                 Cancel
               </button>
@@ -646,7 +646,7 @@ const MainSection = () => {
               <button
                 onClick={handleSubmit}
                 type="submit"
-                className="mt-4 p-2 w-full bg-primary text-white rounded-md"
+                className="mt-4 p-2 w-full bg-primary dark:bg-navy-600 text-white rounded-md"
               >
                {currentStep!=4?"Next":"Submit"} 
               </button>
@@ -659,16 +659,16 @@ const MainSection = () => {
         {dashboardData.map((el, index) => (
           <div
             key={index}
-            className="h-[12rem] lg:w-[32%] w-full gap-8 px-4 py-5 flex bg-white border rounded-md cursor-pointer"
+            className="h-[12rem] lg:w-[32%] w-full gap-8 px-4 py-5 flex dark:bg-shadow-500 bg-white  border dark:border-none rounded-md cursor-pointer"
           >
-            <div className="h-[4rem] w-[4rem] flex items-center justify-center rounded-md text-white bg-primary">
+            <div className="h-[4rem] w-[4rem] flex items-center justify-center rounded-md text-white bg-primary dark:bg-navy-900">
               {el.icon}
             </div>
             <div className="flex-grow flex flex-col justify-between">
-              <span className="text-[gray] text-lg">{el.name}</span>
+              <span className="text-[gray] dark:text-white text-lg">{el.name}</span>
               <div className="flex flex-col gap-2">
-                <span className="text-3xl font-bold">{el.number}</span>
-                <span>
+                <span className="text-3xl dark:text-white font-bold">{el.number}</span>
+                <span className="dark:text-white">
                   <span className="text-[green] font-bold">+24</span> in the
                   last month
                 </span>
@@ -679,20 +679,20 @@ const MainSection = () => {
       </div>
       <div className="mx-auto w-full mt-8 px-[10px] md:px-[40px]">
         <div className="sm:flex sm:items-center sm:justify-between flex-col sm:flex-row">
-          <p className="flex-1 text-base font-bold text-gray-900">
+          <p className="flex-1 text-base font-bold text-gray-900 dark:text-white">
             Latest Payments
           </p>
 
           <div className="mt-4 sm:mt-0">
             <div className="flex items-center justify-start sm:justify-end">
               <div className="flex items-center">
-                <label className="mr-2 flex-shrink-0 text-sm font-medium text-gray-900">
+                <label className="mr-2 flex-shrink-0 text-sm font-medium text-gray-900 dark:text-white">
                   Sort by:
                 </label>
                 <select
                   onChange={handleSort}
                   value={sortBy}
-                  className="sm:mr-4 py-[10px] block w-full rounded-lg border p-1 text-base outline-none focus:shadow sm:text-sm"
+                  className="sm:mr-4 dark:bg-navy-700 dark:border-none dark:text-white px-[20px] py-[10px] block w-full rounded-lg border p-1 text-base outline-none focus:shadow sm:text-sm"
                 >
                   <option value="Recent">Recent</option>
                   <option value="Plan">Plan</option>
@@ -703,7 +703,7 @@ const MainSection = () => {
 
               <button
                 type="button"
-                className="inline-flex cursor-pointer items-center rounded-lg border border-gray-400 bg-white py-2 px-3 text-sm font-medium text-gray-800 shadow hover:bg-gray-100 focus:shadow"
+                className="inline-flex cursor-pointer items-center rounded-lg border border-gray-400 bg-white dark:bg-navy-700 dark:border-none dark:text-white py-2 px-3 text-sm font-medium text-gray-800 shadow hover:bg-gray-100 focus:shadow"
                 onClick={() => exportToCSV(transactionsCsv)}
               >
                 <svg
@@ -726,7 +726,7 @@ const MainSection = () => {
           </div>
         </div>
 
-        <div className="mt-6 bg-white overflow-hidden rounded-xl border shadow">
+        <div className="mt-6 bg-white dark:bg-navy-700 overflow-hidden rounded-xl border dark:border-none shadow">
           <table className="min-w-full border-separate border-spacing-y-2 border-spacing-x-2">
             <thead className="hidden border-b lg:table-header-group">
               <tr>
@@ -745,7 +745,9 @@ const MainSection = () => {
               </tr>
             </thead>
             <tbody className="lg:border-gray-300">
-              {transactions.map((transaction) => (
+            {
+              transactions&&transactions.length>0?
+              transactions.map((transaction) => (
                 <tr key={transaction.id}>
                   <td className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6">
                     {transaction.id}
@@ -774,16 +776,28 @@ const MainSection = () => {
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+                
+              
+             :
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td className="dark:text-white text-start
+                   flex items-center justify-start h-[200px]">
+                <p>No transaction history</p>
+                  </td>
+                  </tr>
+            }
             </tbody>
           </table>
         </div>
       </div>
       <div className="p-8 flex flex-col gap-10">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">Your Reports</h2>
+          <h2 className="text-2xl dark:text-white font-bold">Your Reports</h2>
           <div className="flex gap-4 items-center">
-            <select className="bg-primary text-white cursor-pointer rounded-md p-2.5 outline-none">
+            <select className="bg-primary dark:bg-navy-700 text-white cursor-pointer rounded-md p-2.5 outline-none">
               <option>January</option>
               <option>February</option>
               <option>March</option>
@@ -792,7 +806,7 @@ const MainSection = () => {
             </select>
             <button
               onClick={() => setReportModal(true)}
-              className="p-4 rounded-full bg-primary text-white"
+              className="p-4 rounded-full bg-primary dark:bg-navy-700 text-white"
             >
               <TbPlus size={20} />
             </button>

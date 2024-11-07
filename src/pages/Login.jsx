@@ -22,10 +22,10 @@ const Login = () => {
   };
   return (
     <AuthLayout>
-      <div className="flex 500:h-fit h-screen 500:w-[500px]   w-full flex-col gap-5  py-10 px-8 bg-white rounded-md">
+      <div className="flex 500:h-fit h-screen 500:w-[500px]  w-full flex-col gap-5  py-10 px-8 bg-white rounded-md">
         <h2 className="text-2xl font-semibold text-center">Iniciar sesión</h2>
         <div className="flex flex-col py-3 gap-5">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2"> 
             <label className="font-semibold">Correo electrónico:</label>
             <input
               onChange={(e) => {

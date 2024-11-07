@@ -17,19 +17,23 @@ export default function User(props) {
     );
   }, []);
   React.useEffect(() => {
+  
     getActiveRoute(routes);
   }, [location.pathname]);
 
   const getActiveRoute = (routes) => {
-    let activeRoute = "Main Dashboard";
+    let activeRoute = "Dashboard";
     for (let i = 0; i < routes.length; i++) {
+      
       if (
         window.location.href.indexOf(
           routes[i].layout + "/" + routes[i].path
         ) !== -1
       ) {
+        console.log(routes)
         setCurrentRoute(routes[i].name);
       }
+      console.log(activeRoute)
     }
     return activeRoute;
   };
@@ -58,10 +62,10 @@ export default function User(props) {
 
   document.documentElement.dir = "ltr";
   return (
-    <div className="flex h-full w-full">
-      <Sidebar open={open} onClose={() => setOpen(false)} />
+    <div className="flex h-[100vh] overflow-hidden w-full">
+      <Sidebar routes={routes} open={open} onClose={() => setOpen(false)} />
       {/* Navbar & Main Content */}
-      <div className="h-full w-full bg-lightPrimary dark:!bg-navy-900">
+      <div className="h-full w-full overflow-auto bg-lightPrimary dark:!bg-navy-900">
         {/* Main Content */}
         <main
           className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
@@ -70,7 +74,7 @@ export default function User(props) {
           <div className="h-full">
             <Navbar
               onOpenSidenav={() => setOpen(true)}
-              logoText={"Horizon UI Tailwind React"}
+              logoText={"Estatio "}
               brandText={currentRoute}
               secondary={getActiveNavbar(routes)}
               {...rest}
