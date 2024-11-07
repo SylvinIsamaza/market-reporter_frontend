@@ -15,6 +15,7 @@ import {
 } from "../../hooks/address";
 import { exportToCSV } from "../../utils/csv";
 import { interestedServices } from "../../data/static";
+import { useFetchTransaction } from "hooks/transaction";
 const renovationOptions = [
   "Total renovation apparently with no structural damage",
   "Partial renovation apparently with no structural damage",
@@ -22,34 +23,12 @@ const renovationOptions = [
   "Apparently no renovation needed",
   "Condition unknown",
 ];
+// 
+// remove unnecessary components
 
+// 
 const MainSection = () => {
   const [transactionsCsv, setTransactionsCsv] = useState([]);
-
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await client.get("/transaction/me", {
-          withCredentials: true,
-        });
-        const fetchedPayments = response.data.slice(-5).map((transaction) => {
-          return {
-            id: transaction.paymentIntentId,
-            plan: transaction.plan,
-            date: new Date(transaction.createdAt).toLocaleDateString(),
-            amount: transaction.amount,
-            status: transaction.paymentStatus,
-          };
-        });
-        setTransactionsCsv(fetchedPayments);
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      }
-    };
-
-    fetchTransactions();
-  }, []);
-
   const {
     provinces,
     loading: provincesLoading,
@@ -67,6 +46,7 @@ const MainSection = () => {
     loading: streetsLoading,
     error: streetsError,
   } = useFetchCallejero(selectedProvince, selectedMunicipio);
+  const {data:transactions,loading,error,isError}=useFetchTransaction()
   const [selectedStreet, setSelectedStreet] = useState("");
   const [sortBy, setSortBy] = useState("Recent");
 
