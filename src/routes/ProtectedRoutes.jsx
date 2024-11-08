@@ -5,28 +5,28 @@ import { useNavigate } from 'react-router-dom';
 
 function ProtectedRoutes({ children }) {
   const navigate=useNavigate()
-  // const { data,isLoading, isError,error } = useAuth();
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (isError) {  
-  //   console.log(error)
-  //   toast.error(error.response?.data?.message|"Something went wrong")
-  //   navigate("/login")
-  //   return;
+  const { data,isLoading, isError,error } = useAuth();
+  if (isLoading) {
+    return <div className='w-full h-screen bg-white'>Loading...</div>;
+  }
+  if (isError&&!isLoading) {  
+    console.log(error)
+    toast.error(error.response?.data?.message|"Something went wrong")
+    navigate("/login")
+    return;
     
-  // }
-  // if (data) {
-  //   console.log(data)
-  //   return (
-  //     <div>
-  //   {children}
-  //     </div>
+  }
+  if (data) {
+    console.log(data)
+    return (
+      <div>
+    {children}
+      </div>
         
       
     
-  //   )
-  // }
+    )
+  }
 
   return (
         <div>

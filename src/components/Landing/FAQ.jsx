@@ -38,8 +38,8 @@ const FAQ = () => {
   return (
     <section className="flex flex-col items-center bg-white py-14 text-center">
       <span className="text-lg font-bold text-brand lg:text-3xl">FAQ</span>
-      <div className=" min-[900px]:flex-row flex-col flex justify-center gap-20">
-        <img src={FaqImage} className=" min-[900px]:w-[40%] h-[40rem]" />
+      <div className=" lg:flex-row flex-col flex justify-center gap-20">
+        <img src={FaqImage} className=" lg:w-[40%] h-[40rem]" />
         <div className="flex flex-grow flex-col gap-5 px-2 py-14">
           {FAQS.map((el, index) => (
             <Question

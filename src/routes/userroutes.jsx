@@ -1,12 +1,7 @@
 import React from "react";
-import Profile from "@/views/admin/profile";
+import Profile from "@/pages/admin/profile";
 
-
-import {
-  MdHome,
-  MdBarChart,
-  MdPerson,
-} from "react-icons/md";
+import { MdHome, MdBarChart, MdPerson } from "react-icons/md";
 import PdfViewer from "@/pages/PdfViewer";
 import ProtectedRoutes from "./ProtectedRoutes";
 import UserDashboard from "@/pages/UserDashboard";
@@ -19,28 +14,30 @@ const routes = [
     layout: "/user",
     path: "view-pdf",
     icon: <MdHome className="h-6 w-6" />,
-    component: <PdfViewer/>,
-  }, 
+    component: <PdfViewer />,
+  },
   {
     name: "Dashboard",
     layout: "/user",
     path: "dashboard",
     icon: <MdHome className="h-6 w-6" />,
-    component: <ProtectedRoutes><UserDashboard /></ProtectedRoutes>,
+    component: (
+     
+        <UserDashboard />
+     
+    ),
   },
-  {
-    name: "Credits",
-    layout: "/user",
-    icon: <MdBarChart className="h-6 w-6" />,
-    path: "credits",
-    component: <ProtectedRoutes><CreditPage /></ProtectedRoutes>,
-  },
+
   {
     name: "Transactions",
     layout: "/user",
     icon: <MdBarChart className="h-6 w-6" />,
     path: "transactions",
-    component: <ProtectedRoutes><Transaction /></ProtectedRoutes>,
+    component: (
+     
+        <Transaction />
+     
+    ),
   },
   {
     name: "Profile",
@@ -49,6 +46,5 @@ const routes = [
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
   },
-
 ];
 export default routes;

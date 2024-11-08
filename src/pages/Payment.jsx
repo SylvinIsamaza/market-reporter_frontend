@@ -70,22 +70,7 @@ const Payment = () => {
           <div className="flex flex-col gap-6">
             <span>Select Payment Method</span>
             <div className="flex flex-col gap-4">
-              <div
-                onClick={() => setSelectedPaymentMethod(1)}
-                className="flex justify-between items-center cursor-pointer p-4 bg-white rounded-md"
-              >
-                <div className="flex gap-3 items-center">
-                  <img src={Paypal} alt="Paypal" className="h-5" />
-                  <span>Paypal</span>
-                </div>
-                <div
-                  className={`h-5 w-5 rounded-full ${
-                    selectedPaymentMethod === 1
-                      ? "bg-primary"
-                      : "bg-white border border-secondary"
-                  }`}
-                ></div>
-              </div>
+
               <div
                 onClick={() => setSelectedPaymentMethod(2)}
                 className="flex justify-between items-center cursor-pointer p-4 bg-white rounded-md"

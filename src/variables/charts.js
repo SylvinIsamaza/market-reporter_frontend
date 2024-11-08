@@ -13,6 +13,7 @@ export const barChartOptionsDailyTraffic = {
   },
   tooltip: {
     style: {
+      
       fontSize: "12px",
       fontFamily: undefined,
       backgroundColor: "#000000"

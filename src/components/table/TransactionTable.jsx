@@ -1,49 +1,7 @@
-import { useEffect, useState } from "react";
-
-import { HiDocument } from "react-icons/hi2";
-import { MdAccountBalanceWallet, MdPending } from "react-icons/md";
-import { TbPlus } from "react-icons/tb";
-
-import Report from "../Report";
-import { useCreateReport } from "../../hooks/report";
-import Header from "../Header";
-import { Combobox } from "../Combobox";
-import {
-  useFetchCallejero,
-  useFetchMunicipios,
-  useFetchProvincias,
-} from "../../hooks/address";
-import { exportToCSV } from "../../utils/csv";
-import { interestedServices } from "../../data/static";
-import client from "api/client";
-
-// remove every thing except sort and export
-const TransactionTable = ({title,error,transaction}) => {
+import {  useState } from "react";
+const TransactionTable = ({title,error,transactions}) => {
   const [transactionsCsv, setTransactionsCsv] = useState([]);
-  const [transactions, setTransactions] = useState([]);
-  useEffect(() => {
-    const fetchTransactions = async () => {
-      try {
-        const response = await client.get("/transaction/me", {
-          withCredentials: true,
-        });
-        const fetchedPayments = response.data.slice(-5).map((transaction) => {
-          return {
-            id: transaction.paymentIntentId,
-            plan: transaction.plan,
-            date: new Date(transaction.createdAt).toLocaleDateString(),
-            amount: transaction.amount,
-            status: transaction.paymentStatus,
-          };
-        });
-        setTransactionsCsv(fetchedPayments);
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      }
-    };
 
-    fetchTransactions();
-  }, []);
   const [sortBy, setSortBy] = useState("Recent");
   const handleSort = (e) => {
     const value = e.target.value;
@@ -89,7 +47,7 @@ const TransactionTable = ({title,error,transaction}) => {
   };
 
   return (
-      <div className="mx-auto w-full mt-8 px-[10px] md:px-[40px]">
+      <div className="mx-auto text-white w-full mt-8 ">
         <div className="sm:flex sm:items-center sm:justify-between flex-col sm:flex-row">
           <p className="flex-1 text-base font-bold text-gray-900 dark:text-white">
             {title}
@@ -104,7 +62,7 @@ const TransactionTable = ({title,error,transaction}) => {
                 <select
                   onChange={handleSort}
                   value={sortBy}
-                  className="sm:mr-4 dark:bg-navy-700 dark:border-none dark:text-white px-[20px] py-[10px] block w-full rounded-lg border p-1 text-base outline-none focus:shadow sm:text-sm"
+                  className="sm:mr-4 dark:bg-navy-700  bg-gray-300 text-gray-900 dark:border-none dark:text-white px-[20px] py-[10px] block w-full rounded-lg border p-1 text-base outline-none focus:shadow sm:text-sm"
                 >
                   <option value="Recent">Recent</option>
                   <option value="Plan">Plan</option>
@@ -157,12 +115,11 @@ const TransactionTable = ({title,error,transaction}) => {
               </tr>
             </thead>
             <tbody className="lg:border-gray-300">
-            {
-              !error&&
+            {!error&&
               transactions&&transactions.length>0?
               transactions.map((transaction) => (
                 <tr key={transaction.id}>
-                  <td className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 sm:px-6">
+                  <td className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 dark:text-white sm:px-6">
                     {transaction.id}
                   </td>
                   <td className="whitespace-no-wrap hidden py-4 text-sm font-normal text-gray-500 sm:px-6 lg:table-cell">
@@ -177,8 +134,8 @@ const TransactionTable = ({title,error,transaction}) => {
                         transaction.status === "Complete"
                           ? "bg-blue-600"
                           : transaction.status === "Canceled"
-                          ? "bg-red-200"
-                          : "bg-blue-200"
+                          ? "bg-red-400"
+                          : "bg-blue-500"
                       } py-2 px-3 text-xs text-white`}
                     >
                       {transaction.status === "Complete"
@@ -196,13 +153,13 @@ const TransactionTable = ({title,error,transaction}) => {
                   <tr>
                     <td></td>
                     <td></td>
-                    <td className="dark:text-white text-start
-                   flex items-center justify-start h-[200px]">
+                    <td className="dark:text-white text-navy-900 text-start
+                   flex items-center justify-start h-[300px]">
                 <p>No transaction history</p>
                   </td>
                   </tr>
             }
-            {error?<p>{error.message}</p>}
+            {error&&<p>{error.message}</p>}
             </tbody>
           </table>
         </div>

@@ -64,7 +64,7 @@ const SelectPlan = () => {
 
   return (
     <AuthLayout>
-      <div className="h-screen hidden-scroll-container 800:px-[30px] px-[5px] overflow-auto py-20 flex flex-col items-center gap-10 w-full">
+      <div className="h-screen  hidden-scroll-container 800:px-[30px] px-[5px] overflow-auto py-20 flex flex-col items-center gap-10 w-full">
         <div className="flex flex-col gap-2">
           <h2 className="text-2xl font-semibold">Subscription & Payment</h2>
           <span className="text-secondary text-center">

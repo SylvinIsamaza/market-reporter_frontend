@@ -9,13 +9,11 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import Landing from "./pages/Landing";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import AdminLayout from "./layouts/admin";
-import PdfViewer from "./pages/PdfViewer";
 import Report from "./pages/Report";
 import Transaction from "./pages/Transaction";
 import Settings from "./pages/Setting";
 import CreditPage from "./pages/Credits";
-import AuthLayout from "./layouts/AuthLayout";
-import Dashboard from "./views/admin/default";
+import Dashboard from "./pages/admin/default";
 import UserLayout from "./layouts/user";
 
 function App() {

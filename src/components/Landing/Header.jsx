@@ -14,13 +14,13 @@ const Header = () => {
   return (
     <header className="flex h-[5rem] w-full justify-between py-2 min-[900px]:px-4">
       {/* Desktop logo */}
-      <div className="hidden min-[900px]:flex items-center gap-2">
+      <div className="hidden lg:flex items-center gap-2">
         <LuLineChart size={25} />
         <span className="text-xl font-semibold">Realtio</span>
       </div>
 
       {/* Desktop navigation */}
-      <nav className="hidden items-center min-[900px]:flex">
+      <nav className="hidden items-center lg:flex">
         <ul className="flex gap-5 lg:gap-16">
           {navLinks.map((link, index) => (
             <li
@@ -34,7 +34,7 @@ const Header = () => {
       </nav>
 
       {/* Desktop buttons */}
-      <div className="hidden min-[900px]:flex items-center gap-5">
+      <div className="hidden lg:flex items-center gap-5">
         <button
           onClick={() => navigate("/signup")}
           className="text-sm outline-none hover:text-primary transition font-semibold px-8 h-[3rem] rounded-full"
@@ -50,7 +50,7 @@ const Header = () => {
       </div>
 
       {/* Mobile logo and menu toggle */}
-      <div className="min-[900px]:hidden flex items-center justify-between w-full">
+      <div className="lg:hidden flex items-center justify-between w-full">
         <div className="flex items-center gap-2">
           <LuLineChart size={25} />
           <span className="text-xl font-semibold">Realtio</span>

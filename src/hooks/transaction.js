@@ -1,12 +1,5 @@
-const { useQuery } = require("@tanstack/react-query");
-const { default: client } = require("api/client");
-const { fetchTransaction } = require("api/transaction");
-
-
-
-
-
-// us
+import { useQuery } from "@tanstack/react-query"
+import { fetchTransaction } from "@/api/transaction"
 
 export const useFetchTransaction=()=>{
   return(

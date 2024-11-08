@@ -1,15 +1,29 @@
 import React from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer/Footer";
 import routes from "@/routes/userroutes";
+import { useAuth } from "@/hooks/auth";
+import toast from "react-hot-toast";
+
 
 export default function User(props) {
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+  const { data, isLoading, isError, error } = useAuth();
+  const navigate=useNavigate()
+  React.useEffect(() => {
+
+    if (isError && !isLoading) {
+      toast.error(error?.response?.data?.message || "Something went wrong");
+      navigate("/login");
+    }
+ 
+  }, [isError, isLoading, error, navigate]);
+
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>
@@ -60,9 +74,9 @@ export default function User(props) {
     });
   };
 
-  document.documentElement.dir = "ltr";
   return (
-    <div className="flex h-[100vh] overflow-hidden w-full">
+    <>
+      {isLoading?<div className="w-full h-screen flex items-center justify-center">Loading...</div>:      <div className="flex h-[100vh] overflow-hidden w-full">
       <Sidebar routes={routes} open={open} onClose={() => setOpen(false)} />
       {/* Navbar & Main Content */}
       <div className="h-full w-full overflow-auto bg-lightPrimary dark:!bg-navy-900">
@@ -79,7 +93,7 @@ export default function User(props) {
               secondary={getActiveNavbar(routes)}
               {...rest}
             />
-            <div className="pt-5s mx-auto mb-auto h-full min-h-[calc(100vh-200px)] p-2 md:pr-2">
+            <div className="pt-5s mx-auto mb-auto  p-2 md:pr-2">
               <Routes>
                 {getRoutes(routes)}
 
@@ -92,6 +106,9 @@ export default function User(props) {
           </div>
         </main>
       </div>
-    </div>
+    </div>}
+   
+    </>
+ 
   );
 }

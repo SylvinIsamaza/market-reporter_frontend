@@ -131,3 +131,10 @@ svg{
 input{
   @apply dark:bg-navy-700 border-none
 }
+
+.dark .apexcharts-theme-light{
+  @apply text-[#000000]
+}
+.dark .apexcharts-tooltip{
+  @apply bg-navy-700
+}

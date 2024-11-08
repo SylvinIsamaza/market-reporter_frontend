@@ -1,16 +1,16 @@
 import React from "react";
-import MainDashboard from "@/views/admin/default";
+import MainDashboard from "@/pages/admin/default";
 
-import Profile from "@/views/admin/profile";
-import DataTables from "@/views/admin/tables";
+import Profile from "@/pages/admin/profile";
+import DataTables from "@/pages/admin/tables";
 
 import {
   MdHome,
-  MdOutlineShoppingCart,
   MdBarChart,
   MdPerson,
   MdLock,
 } from "react-icons/md";
+import Transaction from "@/pages/Transaction";
 
 const routes = [
   {
@@ -21,11 +21,11 @@ const routes = [
     component: <MainDashboard />,
   },  
   {
-    name: "Data Tables",
+    name: "Transactions",
     layout: "/admin",
     icon: <MdBarChart className="h-6 w-6" />,
-    path: "data-tables",
-    component: <DataTables />,
+    path: "transactions",
+    component: <Transaction />,
   },
   {
     name: "Profile",
