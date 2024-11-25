@@ -56,15 +56,7 @@ const Signup = () => {
               placeholder="Contraseña"
             />
           </div>
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <input type="checkbox" />
-              <span>Recuérdame</span>
-            </div>
-            <span className="text-sm text-primary font-semibold">
-              ¿Olvidaste tu contraseña?
-            </span>
-          </div>
+       
         </div>
 
         <button

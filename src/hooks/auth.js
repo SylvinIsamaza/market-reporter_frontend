@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { useDispatch } from "react-redux"
-import { authenticate, login, logout, register, verifyOTP } from "../api/auth"
+import { authenticate, changePassword, login, logout, register, resetPassword, sendResetCode, verifyOTP } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 export const useSignup =() => {
   const dispatch = useDispatch()
@@ -77,4 +77,64 @@ export const useLogout = () => {
      retry:1
      
    })
- }
+}
+ 
+export const useChangePassword = () => {
+  return useMutation({
+    mutationKey: ["change-password"],
+    mutationFn: changePassword,
+    onSuccess: () => {
+      toast.success("Password changed successfully")
+    },
+    onError: (error) => {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  })
+}
+
+
+export const useSendResetCode = () => {
+  return useMutation({
+    mutationKey: ["send-reset-code"],
+    mutationFn: sendResetCode,
+    onSuccess: () => {
+      toast.success("Reset code sent successfully")
+    },
+    onError: (error) => {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  })
+}
+
+export const useResetPassword = () => {
+  const navigate=useNavigate()
+  return useMutation({
+    mutationKey: ["reset-password"],
+    mutationFn: resetPassword,
+    onSuccess: () => {
+      toast.success("Password reset successfully")
+    },
+    onError: (error) => {
+    
+      toast.error(error.response.data.message)
+      navigate("/reset-password")
+
+    }
+  })
+}
+
+export const useSendResetPasswordCode = () => {
+  return useMutation({
+    mutationKey: ["send-reset-password-code"],
+    mutationFn: sendResetCode,
+    onSuccess: () => {
+      toast.success("Reset code sent successfully")
+    },
+    onError: (error) => {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  })
+}

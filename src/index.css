@@ -129,7 +129,7 @@ svg{
 }
 
 input{
-  @apply dark:bg-navy-700 border-none
+  @apply dark:bg-navy-700 dark:border-none 
 }
 
 .dark .apexcharts-theme-light{

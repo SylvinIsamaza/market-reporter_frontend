@@ -11,7 +11,7 @@ const userRoutes = [
   {
     route: "Panel de control",
     icon: <GoHomeFill size={24} />,
-    path:"/user-dashboard"
+    path:"/user/dashboard"
   },
   {
     route: "Informes",

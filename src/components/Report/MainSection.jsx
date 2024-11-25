@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BusinessMan from "../../assets/images/business-man.jpg";
 import { HiDocument } from "react-icons/hi2";
 import { MdAccountBalanceWallet, MdPending } from "react-icons/md";
 import { TbPlus } from "react-icons/tb";
 import Report from "../Report";
-import { useCreateReport } from "../../hooks/report";
+import { useCreateReport, useGetReports } from "../../hooks/report";
 import { useNavigate } from "react-router-dom";
 import Header from "../Header";
 
@@ -16,7 +16,15 @@ const renovationOptions = [
   "Condition unknown",
 ];
 
-const MainSection = ({showSidebar,setShowSidebar}) => {
+const MainSection = ({ showSidebar, setShowSidebar }) => {
+  const { data: reports, isLoading, error } = useGetReports()
+  useEffect(() => {
+    if (isLoading) {
+      return(<div>Loading....</div>)
+    }
+    
+  },[])
+  console.log(reports)
   const [dashboardData] = useState([
     {
       icon: <HiDocument size={23} />,
@@ -125,7 +133,7 @@ const MainSection = ({showSidebar,setShowSidebar}) => {
   };
 
   return (
-    <div className={`lg:ml-[22rem] lg:block flex-grow overflow-scroll bg-slate-100 `}>
+<div className=" flex bg-transparent  overflow-auto flex-col flex-grow bg-slate-100">
 
       {reportModal && (
         <div className="fixed flex items-center justify-center left-0 z-10 h-screen w-screen bg-[rgba(0,0,0,.6)]">
@@ -312,11 +320,9 @@ const MainSection = ({showSidebar,setShowSidebar}) => {
           </form>
         </div>
       )}
-   <Header showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
-
       <div className="p-8 flex flex-col gap-10">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">All Reports</h2>
+       <div></div>
           <div className="flex gap-4 items-center">
             <select className="bg-primary text-white cursor-pointer rounded-md p-2.5 outline-none">
               <option>January</option>
@@ -333,14 +339,21 @@ const MainSection = ({showSidebar,setShowSidebar}) => {
             </button>
           </div>
         </div>
+       
         <div className="flex flex-wrap gap-5">
-          <Report />
-          <Report />
-          <Report />
-          <Report />
-          <Report />
-          <Report />
-        </div>
+              {reports&&reports.length>0 ? (
+                reports.map((report) => <Report report={report} />)
+              ) : (
+                <div className="flex w-full justify-center flex-col  h-[300px] items-center">
+                    <img src="/no_report.png" className="h-[200px] " />
+                <p className="text-[20px] font-[500]">No reports Soon</p>
+                <button onClick={()=>{setReportModal(true)}} className="mt-4 p-2 bg-primary flex gap-[20px] h-[50px] justify-center items-center dark:bg-navy-600 text-white rounded-md">
+                  Generate Report
+                 
+                  </button>
+                </div>
+              )}
+            </div>
       </div>
     </div>
   );

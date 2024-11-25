@@ -69,9 +69,57 @@ export const logout = async () => {
 
 
 export const verifyOTP = async (data) => {
+  console.log(data)
   try {
-    const response = await client.post("/auth/verify-otp",data ,{ withCredentials: true })
+    if (data.next == "change-password") {
+      const response = await client.post("/auth/verify-reset-otp",data ,{ withCredentials: true })
+      return response.data.message 
+    } else {
+      const response = await client.post("/auth/verify-otp",data ,{ withCredentials: true })
+      return response.data.message
+    } 
+  } catch (error) {
+    
+    throw error
+  }
+}
+export const verifyResetOTP = async (data) => {
+  console.log(data)
+  try {
+    const response = await client.post("/auth/verify-reset-otp",data ,{ withCredentials: true })
     return response.data.message 
+  } catch (error) {
+    
+    throw new Error(error.response.data.message)
+  }
+}
+
+
+export const sendResetCode = async (data) => {
+  try {
+    const response = await client.post("/auth/reset-password-code",data,{withCredentials:true})
+    return response.data
+  } catch (error) {
+    
+    throw error
+  }
+}
+
+export const resetPassword = async (data) => {
+  try {
+    const response = await client.post("/auth/set-new-password",data,{withCredentials:true})
+    return response.data
+  } catch (error) {
+    
+    throw error
+  }
+}
+
+
+export const changePassword=async (data)=>{
+  try {
+    const response = await client.put("/auth/change-password",data,{withCredentials:true})
+    return response.data
   } catch (error) {
     
     throw error

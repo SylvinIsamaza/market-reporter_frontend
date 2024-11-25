@@ -16,7 +16,7 @@ const PaymentSuccess = () => {
       if (!paymentIntentId) return;
 
       try {
-        const response = await client.get(`/payment/payment-success?paymentIntentId=${paymentIntentId}`,{withCredentials:true});
+        const response = await client.get(`/payment/success?paymentIntentId=${paymentIntentId}`,{withCredentials:true});
         setPaymentDetails(response.data);
       } catch (error) {
         console.error("Error fetching payment details:", error);

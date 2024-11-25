@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LuLineChart } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoMenu, IoClose } from "react-icons/io5"; // Import close icon
 
 const Header = () => {
@@ -14,10 +14,10 @@ const Header = () => {
   return (
     <header className="flex h-[5rem] w-full justify-between py-2 min-[900px]:px-4">
       {/* Desktop logo */}
-      <div className="hidden lg:flex items-center gap-2">
+      <Link to={"/"} className="hidden lg:flex items-center gap-2">
         <LuLineChart size={25} />
         <span className="text-xl font-semibold">Realtio</span>
-      </div>
+      </Link>
 
       {/* Desktop navigation */}
       <nav className="hidden items-center lg:flex">

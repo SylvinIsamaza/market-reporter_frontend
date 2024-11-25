@@ -12,14 +12,12 @@ export const addReport = async (propertyData) => {
 
   return (await responsePromise).data;
 };
-export const fetchReports = async (month, year) => {
+export const fetchReports = async () => {
   try {
     const response = await client.get(`/report`, {
-      params: { month, year },
       withCredentials: true,
     });
-    
-    return response.data || [];
+    return response.data.reports || [];
     
   } catch (error) {
     console.error("Error fetching reports:", error);
@@ -28,3 +26,5 @@ export const fetchReports = async (month, year) => {
     throw new Error(error.response?.data?.message || 'Failed to fetch reports');
   }
 };
+
+

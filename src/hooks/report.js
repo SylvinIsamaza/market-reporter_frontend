@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query"
-import { addReport } from "../api/report"
-import toast from "react-hot-toast"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import { addReport,fetchReports } from "../api/report"
+
 import { useNavigate } from "react-router-dom"
 export const useCreateReport = () => {
   const navigate=useNavigate()
@@ -14,4 +14,20 @@ export const useCreateReport = () => {
     
   })
   
+}
+
+
+export const useGetReports = () => {
+  return useQuery(
+    {
+      queryKey: ["getReports"],
+      queryFn:fetchReports,
+      enabled: true,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+    },
+    
+  
+  )
 }

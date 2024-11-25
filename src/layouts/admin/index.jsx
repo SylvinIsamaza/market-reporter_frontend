@@ -5,11 +5,13 @@ import Sidebar from "@/components/sidebar";
 import Footer from "@/components/footer/Footer";
 import routes from "@/routes/route";
 
+
 export default function Admin(props) {
   const { ...rest } = props;
   const location = useLocation();
   const [open, setOpen] = React.useState(true);
   const [currentRoute, setCurrentRoute] = React.useState("Main Dashboard");
+
 
   React.useEffect(() => {
     window.addEventListener("resize", () =>

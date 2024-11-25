@@ -64,7 +64,7 @@ export default function User(props) {
   };
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/user") {
+      if ((prop.layout === "/user"||prop.layout=="/")) {
         return (
           <Route path={`/${prop.path}`} element={prop.component} key={key} />
         );

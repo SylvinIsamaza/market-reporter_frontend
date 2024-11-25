@@ -16,7 +16,7 @@ const Footer = () => {
           <img src={Twitter} className="h-[3rem] cursor-pointer" />
         </div>
       </div>
-      <div className="min-[900px]:flex-row flex flex-col   items-center gap-4 text-secondary">
+      <div className="md:flex-row flex flex-col   items-center gap-4 text-secondary">
         <span>Términos y condiciones</span>
         <span>Aviso legal</span>
         <span>Política de cookies</span>

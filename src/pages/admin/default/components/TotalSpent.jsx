@@ -5,13 +5,85 @@ import {
   MdBarChart,
 } from "react-icons/md";
 import Card from "@/components/card";
-import {
-  lineChartDataTotalSpent,
-  lineChartOptionsTotalSpent,
-} from "@/variables/charts";
-import LineChart from "@/components/charts/LineChart";
 
-const TotalSpent = () => {
+import LineChart from "@/components/charts/LineChart";
+import { generateTransactionKeys } from "@/utils/formatter";
+
+const TotalSpent = ({ data }) => {
+   const lineChartDataTotalSpent = [
+    {
+      name: "This Month",
+      data: Object.values(data?data.transactionStatisticThisMonth:[]),
+      color: "#4318FF",
+    },
+    {
+      name: "Prev Month",
+      data: Object.values(data?data.transactionStatisticPrevMonth:[]),
+      color: "#6AD2FF",
+    },
+   ];
+  
+  
+  const lineChartOptionsTotalSpent = {
+    legend: {
+      show: false,
+    },
+  
+    theme: {
+      mode: "light",
+    },
+    chart: {
+      type: "line",
+  
+      toolbar: {
+        show: false,
+      },
+    },
+  
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+    },
+  
+    tooltip: {
+      style: {
+        fontSize: "12px",
+        fontFamily: undefined,
+        backgroundColor: "#000000"
+      },
+      theme: 'dark',
+      x: {
+        format: "dd/MM/yy HH:mm",
+      },
+    },
+    grid: {
+      show: false,
+    },
+    xaxis: {
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        style: {
+          colors: "#A3AED0",
+          fontSize: "12px",
+          fontWeight: "500",
+        },
+      },
+      type: "text",
+      range: undefined,
+      categories: generateTransactionKeys(Object.keys(data?data.transactionStatisticPrevMonth:[]),Object.keys(data?data.transactionStatisticThisMonth:[])),
+    },
+  
+    yaxis: {
+      show: false,
+    },
+  };
   return (
     <Card extra="!p-[20px] flex-1 h-[500px] text-center">
       <div className="flex justify-between">
@@ -27,7 +99,7 @@ const TotalSpent = () => {
       <div className="flex h-full w-full flex-row justify-between sm:flex-wrap lg:flex-nowrap 2xl:overflow-hidden">
         <div className="flex flex-col">
           <p className="mt-[20px] text-3xl font-bold text-navy-700 dark:text-white">
-            $37.5K
+            ${data.transactionThisMonth}
           </p>
           <div className="flex flex-col items-start">
             <p className="mt-2 text-sm text-gray-600">Total Spent</p>

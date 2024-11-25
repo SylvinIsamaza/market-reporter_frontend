@@ -34,9 +34,7 @@ const Sidebar = ({ open, onClose,routes}) => {
         <Links routes={routes} />
       </ul>
 
-     {user&&user.role=="common"&&<div className="flex justify-center">
-        <SidebarCard />
-      </div>}
+    
       
 
      

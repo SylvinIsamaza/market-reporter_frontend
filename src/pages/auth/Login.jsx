@@ -14,7 +14,7 @@ const Login = () => {
       { email, password },
       {
         onSuccess: () => {
-          navigate("/user-dashboard");
+          navigate("/user/dashboard");
         },
       }
     );

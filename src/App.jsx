@@ -15,8 +15,20 @@ import Settings from "./pages/Setting";
 import CreditPage from "./pages/Credits";
 import Dashboard from "./pages/admin/default";
 import UserLayout from "./layouts/user";
+import { useInitVisitor } from "@/hooks/analytic";
+import { useEffect } from "react";
+import ResetPassword from "@/pages/auth/ResetPassword";
+import NotFound from "@/pages/NotFound";
+import ChangePassword from "@/pages/ChangePassword";
 
 function App() {
+  const {mutate:initVisitor,isLoading}=useInitVisitor()
+  useEffect(()=>{
+    initVisitor()
+  }, [])
+  if(isLoading){
+    return <div>Loading...</div>
+  }
   return (
     <BrowserRouter>
       <Routes>
@@ -25,16 +37,17 @@ function App() {
         <Route path="/user-dashboard" element={<ProtectedRoutes><UserDashboard /></ProtectedRoutes>}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/reset-password" element={<ResetPassword />}></Route>
         <Route path="/verify-otp" element={<VerifyOtp />}></Route>
         <Route path="/select-plan" element={<SelectPlan />}></Route>
         <Route path="/payment" element={<Payment />}></Route>
-        <Route path="/report" element={<Report />}></Route>
-        <Route path="/transactions" element={<Transaction />}></Route>
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/credits" element={<CreditPage />}></Route>
         <Route path="/payment-success" element={<PaymentSuccess />}></Route>
         <Route path="admin/*" element={<AdminLayout><Dashboard /></AdminLayout>} />
         <Route path="user/*" element={<UserLayout><Dashboard /></UserLayout>} />
+        <Route path="/change-password" element={<ChangePassword />}></Route>
+        <Route path="*" element={<NotFound />} />
     </Routes>
     </BrowserRouter>
   )

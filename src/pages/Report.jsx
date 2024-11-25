@@ -5,8 +5,8 @@ import { useState } from "react";
 const Report = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   return (
-    <div className="h-screen w-full flex">
-      <Sidebar showSidebar={showSidebar} />
+    <div className=" h-[calc(100vh-100px)] overflow-hidden w-full flex">
+      
 
       <MainSection showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
     </div>

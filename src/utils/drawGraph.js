@@ -7,6 +7,10 @@ const generateChartImage = async (data,width,height,url) => {
     type: 'line', 
     data: data,
     options: {
+      legend: {
+        display: false,
+       
+      },
       scales: {
         y: {
           beginAtZero: true,

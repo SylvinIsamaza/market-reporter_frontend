@@ -90,37 +90,11 @@ const Payment = () => {
             </div>
           </div>
           <div className="flex flex-col gap-5">
-            {selectedPaymentMethod === 1 ? (
-              <PayPalScriptProvider
-                options={{ "client-id": "YOUR_PAYPAL_CLIENT_ID" }}
-              >
-                <PayPalButtons
-                  createOrder={(data, actions) => {
-                    return actions.order.create({
-                      purchase_units: [
-                        {
-                          amount: {
-                            value: "10.00",
-                          },
-                        },
-                      ],
-                    });
-                  }}
-                  onApprove={async (data, actions) => {
-                    const details = await actions.order.capture();
-                    console.log(
-                      "Transaction completed by " +
-                        details.payer.name.given_name
-                    );
-                    navigate("/payment-success");
-                  }}
-                />
-              </PayPalScriptProvider>
-            ) : (
+           
               <Elements stripe={stripePromise} options={options}>
                 <PaymentForm clientSecret={clientSecret} />
               </Elements>
-            )}
+            
           </div>
         </div>
       </div>

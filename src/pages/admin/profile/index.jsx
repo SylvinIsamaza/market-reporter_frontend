@@ -1,4 +1,5 @@
 
+import ChangePassword from "./components/ChangePassword";
 import General from "./components/General";
 
 
@@ -11,6 +12,7 @@ const ProfileOverview = () => {
           <General />
           
         </div>
+      
 
     
       </div>
