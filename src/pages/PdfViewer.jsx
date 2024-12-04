@@ -1,34 +1,34 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { MdDownload } from "react-icons/md";
-import { IoChevronBackOutline } from "react-icons/io5";
-import Sidebar from "@/components/UserDashboard/Sidebar";
-import Header from "@/components/Header";
+import { useParams } from "react-router-dom";
+import { useGetReportById } from "@/hooks/report";
 
 function PdfViewer() {
-  const { search } = useLocation();
-  const queryParams = new URLSearchParams(search);
-  const pdfUrl = queryParams.get("url");
-  const navigate = useNavigate();
+  const { url } = useParams();
+  const { data: report, isLoading, error } = useGetReportById(url);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(error)
+
+  const pdfUrl = `http://localhost:5000${report.reportUrl}`;
+
   return (
-    <div className="h-[calc(100vh -100px)] w-full flex justify-center pt-[100px]">
-
-
-        {pdfUrl ? (
-          <iframe
-            src={`${pdfUrl}`}
-            width="100%"
-            className="h-[calc(100vh-100px)]"
-            style={{ border: "none" }}
-            title="PDF Viewer"
-          >
-            This browser does not support PDFs. Please download the PDF to view
-            it: <a href={pdfUrl}>Download PDF</a>.
-          </iframe>
-        ) : (
-          <p>No PDF URL provided.</p>
-        )}
-     
+    <div className="h-[calc(100vh -100px)] w-full flex justify-center pt-[30px]">
+      {pdfUrl ? (
+        <iframe
+          src={`${pdfUrl}`}
+          width="100%"
+          className="h-[calc(100vh-100px)]"
+          style={{ border: "none" }}
+          title="PDF Viewer"
+        >
+          This browser does not support PDFs. Please download the PDF to view
+          it: <a href={pdfUrl}>Download PDF</a>.
+        </iframe>
+      ) : (
+        <p>No PDF URL provided.</p>
+      )}
     </div>
   );
 }

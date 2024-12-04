@@ -10,6 +10,8 @@ import Transaction from "@/pages/Transaction";
 import Report from "@/pages/Report";
 import { GrDocument } from "react-icons/gr";
 import { FaFilePdf } from "react-icons/fa";
+import NotFound from "@/pages/NotFound";
+import EditProfile from "@/pages/admin/profile/components/EditProfile";
 
 const routes = [
   {
@@ -56,6 +58,28 @@ const routes = [
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
-  }
+  },
+  {
+    name: "Not found",
+    layout: "",
+    path: "*",
+    component: <NotFound />,
+
+  },
+  {
+    name: "Edit Profile",
+    layout: "/",
+    path: "/profile/edit",
+    icon: <MdPerson className="h-6 w-6" />,
+    component: <EditProfile />,
+  },
+  {
+    name: "PDF Viewer",
+    layout: "/",
+    path: "/report/:url",
+    icon: <FaFilePdf  />,
+    component:<PdfViewer/>
+  },
+  
 ];
 export default routes;

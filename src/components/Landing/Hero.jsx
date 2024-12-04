@@ -5,7 +5,7 @@ import SloganIndicator from "../../assets/images/slogan-indicator.png"
 const Hero = () => {
   const navigate = useNavigate();
   return (
-    <div className=" lg:flex-row  flex-col  flex justify-between py-14">
+    <div id="inicio" className=" lg:flex-row  flex-col  flex justify-between py-14">
       <div className=" w-full !min-[1000px]:w-[50%] py-4 flex flex-col gap-10 px-[30px]">
         <div className="py-2 px-5 bg-[#2a66b417] w-fit rounded-md cursor-pointer">
           <span className="font-semibold text-primary  text-sm">

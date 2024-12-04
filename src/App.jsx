@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserDashboard from "./pages/UserDashboard";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
 import VerifyOtp from "./pages/VerifyOtp";
 import SelectPlan from "./pages/SelectPlan";
 import Payment from "./pages/Payment";
@@ -20,21 +20,30 @@ import { useEffect } from "react";
 import ResetPassword from "@/pages/auth/ResetPassword";
 import NotFound from "@/pages/NotFound";
 import ChangePassword from "@/pages/ChangePassword";
+import PdfViewer from "@/pages/PdfViewer";
+import AdminProtectedRoutes from "@/routes/AdminRoutes";
 
 function App() {
-  const {mutate:initVisitor,isLoading}=useInitVisitor()
-  useEffect(()=>{
-    initVisitor()
-  }, [])
-  if(isLoading){
-    return <div>Loading...</div>
+  const { mutate: initVisitor, isLoading } = useInitVisitor();
+  useEffect(() => {
+    initVisitor();
+  }, []);
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Landing />}></Route>
-       
-        <Route path="/user-dashboard" element={<ProtectedRoutes><UserDashboard /></ProtectedRoutes>}></Route>
+
+        <Route
+          path="/user-dashboard"
+          element={
+            <ProtectedRoutes>
+              <UserDashboard />
+            </ProtectedRoutes>
+          }
+        ></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
@@ -44,13 +53,32 @@ function App() {
         <Route path="/settings" element={<Settings />}></Route>
         <Route path="/credits" element={<CreditPage />}></Route>
         <Route path="/payment-success" element={<PaymentSuccess />}></Route>
-        <Route path="admin/*" element={<AdminLayout><Dashboard /></AdminLayout>} />
-        <Route path="user/*" element={<UserLayout><Dashboard /></UserLayout>} />
+        <Route
+          path="admin/*"
+          element={
+            <AdminProtectedRoutes>
+              <AdminLayout>
+                <Dashboard />
+              </AdminLayout>
+            </AdminProtectedRoutes>
+          }
+        />
+        <Route
+          path="/user/*"
+          element={
+            <UserLayout>
+              <Dashboard />
+            </UserLayout>
+          }
+        />
         <Route path="/change-password" element={<ChangePassword />}></Route>
+
+        <Route path="/report/:url" element={<PdfViewer />}></Route>
+
         <Route path="*" element={<NotFound />} />
-    </Routes>
+      </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

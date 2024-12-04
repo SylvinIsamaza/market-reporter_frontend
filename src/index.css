@@ -6,6 +6,7 @@
 
 @layer base {
 	html {
+    scroll-behavior: smooth;
 		font-family: 'DM Sans', sans-serif !important;
 		font-feature-settings: 'kern' !important;
 		-webkit-font-smoothing: antialiased;

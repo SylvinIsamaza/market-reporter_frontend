@@ -28,3 +28,19 @@ export const fetchReports = async () => {
 };
 
 
+
+export const getReportById = async (id) => {
+  try {
+    const response = await client.get(`/report/${id}`, {
+      withCredentials: true,
+    });
+    
+    return response.data;
+    
+  } catch (error) {
+    console.error("Error fetching reports:", error);
+    toast.error(error.response?.data?.message || 'Failed to fetch reports');
+    
+    throw new Error(error.response?.data?.message || 'Failed to fetch reports');
+  }
+};

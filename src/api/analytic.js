@@ -18,7 +18,7 @@ export const fetchUserDashboardInfo = async () => {
   };
 export const initVisitor = async () => {
   try {
-    const response = await client.post("/init", {
+    const response = await client.get("/init", {
       withCredentials: true,
      });
    return response.data;

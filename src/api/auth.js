@@ -5,7 +5,15 @@ export const register = async (signupData) => {
 
   
   try {
-    const response = client.post("/auth/register", signupData,{withCredentials:true})
+    let response;
+    if(!signupData.secret){
+     response = client.post("/auth/register", signupData,{withCredentials:true})
+
+    }
+    else{
+
+      response = client.post(`/auth/register/${signupData.secret}`, signupData,{withCredentials:true})
+    }
     toast.promise(
       response,
       {
@@ -119,6 +127,23 @@ export const resetPassword = async (data) => {
 export const changePassword=async (data)=>{
   try {
     const response = await client.put("/auth/change-password",data,{withCredentials:true})
+    return response.data
+  } catch (error) {
+    
+    throw error
+  }
+}
+
+
+export const updateProfile = async (data) => {
+  try {
+    const response = await client.put("/auth/update-profile", data, {
+      withCredentials: true,
+      
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
     return response.data
   } catch (error) {
     

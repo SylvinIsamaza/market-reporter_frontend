@@ -6,6 +6,9 @@ import { Toaster } from "react-hot-toast"
 import { store } from "./redux/store"; 
 import App from './App.jsx'
 import './index.css'
+import pdfjs from "pdfjs-dist";
+
+pdfjs.GlobalWorkerOptions.workerSrc = "https://d2v5g.csb.app/pdf.worker.js";
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>

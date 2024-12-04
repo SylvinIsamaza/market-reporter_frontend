@@ -2,7 +2,6 @@ import React from "react";
 import MainDashboard from "@/pages/admin/default";
 
 import Profile from "@/pages/admin/profile";
-import DataTables from "@/pages/admin/tables";
 
 import {
   MdHome,
@@ -11,6 +10,7 @@ import {
   MdLock,
 } from "react-icons/md";
 import Transaction from "@/pages/Transaction";
+import EditProfile from "@/pages/admin/profile/components/EditProfile";
 
 const routes = [
   {
@@ -33,6 +33,13 @@ const routes = [
     path: "profile",
     icon: <MdPerson className="h-6 w-6" />,
     component: <Profile />,
+  },
+  {
+    name: "Edit Profile",
+    layout: "/",
+    path: "/profile/edit",
+    icon: <MdPerson className="h-6 w-6" />,
+    component: <EditProfile />,
   },
 
 ];

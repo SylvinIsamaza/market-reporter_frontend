@@ -30,7 +30,7 @@ const Planes = () => {
   ];
 
   return (
-    <div className="flex w-full flex-col items-center justify-center gap-14 py-16 px-4">
+    <div id="Planes" className="flex w-full flex-col items-center justify-center gap-14 py-16 px-4">
       <span className="text-3xl font-semibold text-center">
         Planes de precios
       </span>

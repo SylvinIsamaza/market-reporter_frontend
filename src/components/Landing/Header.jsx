@@ -1,31 +1,50 @@
 import { useState } from "react";
 import { LuLineChart } from "react-icons/lu";
-import { Link, useNavigate } from "react-router-dom";
-import { IoMenu, IoClose } from "react-icons/io5"; // Import close icon
+import { useNavigate, useLocation } from "react-router-dom";
+import { IoMenu, IoClose } from "react-icons/io5";
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const navigate = useNavigate();
+  const location = useLocation();
   const navLinks = ["Inicio", "Planes", "Preguntas Frecuentes"];
 
+  const handleScroll = (id) => {
+    if (location.pathname !== "/") {
+      
+      navigate("/", { replace: false });
+      setTimeout(() => {
+        scrollToSection(id); 
+      }, 100);
+      scrollToSection(id);
+    }
+    setIsMobileMenuOpen(false); 
+  };
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <header className="flex h-[5rem] w-full justify-between py-2 min-[900px]:px-4">
+    <header className="flex h-[5rem] fixed w-full bg-white z-[400] px-[20px] justify-between py-2 min-[900px]:px-4">
       {/* Desktop logo */}
-      <Link to={"/"} className="hidden lg:flex items-center gap-2">
+      <div className="hidden lg:flex items-center gap-2">
         <LuLineChart size={25} />
         <span className="text-xl font-semibold">Realtio</span>
-      </Link>
+      </div>
 
       {/* Desktop navigation */}
       <nav className="hidden items-center lg:flex">
         <ul className="flex gap-5 lg:gap-16">
           {navLinks.map((link, index) => (
             <li
-              className="cursor-pointer text-sm font-semibold transition hover:text-primary"
               key={index}
+              className="cursor-pointer text-sm font-semibold transition hover:text-primary"
+              onClick={() => handleScroll(link)} // Call the scroll function
             >
               {link}
             </li>
@@ -66,9 +85,9 @@ const Header = () => {
           <ul className="flex flex-col gap-5 py-4 px-8">
             {navLinks.map((link, index) => (
               <li
-                className="cursor-pointer text-sm text-center font-semibold transition hover:text-primary"
                 key={index}
-                onClick={() => setIsMobileMenuOpen(false)} // Close menu when a link is clicked
+                className="cursor-pointer text-sm text-center font-semibold transition hover:text-primary"
+                onClick={() => handleScroll(link)} // Call the scroll function
               >
                 {link}
               </li>

@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { addReport,fetchReports } from "../api/report"
+import { addReport,fetchReports, getReportById } from "../api/report"
 
 import { useNavigate } from "react-router-dom"
 export const useCreateReport = () => {
@@ -31,3 +31,13 @@ export const useGetReports = () => {
   
   )
 }
+
+export const useGetReportById = (id) => {
+  return useQuery({
+    queryKey: ["getReportById", id], 
+    queryFn: () => getReportById(id),
+  }
+  
+  
+  );
+};

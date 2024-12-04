@@ -27,7 +27,7 @@ const PaymentForm = ({ clientSecret }) => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: import.meta.env.VITE_FRONTEND_URL,
+        return_url: `${window.location.origin}/payment-success`,
       },
     });
 

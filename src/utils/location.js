@@ -2,7 +2,7 @@ import axios from "axios"
 
 async function getProvincias(req, res, next) {
   try {
-    const response = await axios.get("http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias");
+    const response = await axios.get("https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias");
    
     const data = await response.data;
     console.log(data)
@@ -22,7 +22,7 @@ const provinces=[]
 async function getMunicipio(req, res, next) {
   try {
     const { provincia } = req.query;
-    const response = await fetch(`http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia=${provincia.toUpperCase()}`);
+    const response = await fetch(`https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia=${provincia.toUpperCase()}`);
     const data = await response.json();
     const municipio=[]
         const municipioData = data.consulta_municipieroResult.municipiero.muni
@@ -40,7 +40,7 @@ async function getMunicipio(req, res, next) {
 async function getCallejero(req, res, next) {
   try {
     const { municipio, provincia } = req.query;
-    const response = await fetch(`http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerCallejero?Provincia=${provincia.toUpperCase()}&Municipio=${municipio.toUpperCase()}`);
+    const response = await fetch(`https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerCallejero?Provincia=${provincia.toUpperCase()}&Municipio=${municipio.toUpperCase()}`);
     const data = await response.json();
     const calle = data.consulta_callejeroResult.callejero?.calle
     const streetDetailsArray = [];

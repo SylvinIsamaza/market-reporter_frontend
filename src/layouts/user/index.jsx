@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar";
-import Footer from "@/components/footer/Footer";
 import routes from "@/routes/userroutes";
 import { useAuth } from "@/hooks/auth";
 import toast from "react-hot-toast";
@@ -78,13 +77,13 @@ export default function User(props) {
     <>
       {isLoading?<div className="w-full h-screen flex items-center justify-center">Loading...</div>:      <div className="flex h-[100vh] overflow-hidden w-full">
       <Sidebar routes={routes} open={open} onClose={() => setOpen(false)} />
-      {/* Navbar & Main Content */}
+     
       <div className="h-full w-full overflow-auto bg-lightPrimary dark:!bg-navy-900">
-        {/* Main Content */}
+       
         <main
-          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
+          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[240px]`}
         >
-          {/* Routes */}
+          
           <div className="h-full">
             <Navbar
               onOpenSidenav={() => setOpen(true)}
@@ -99,7 +98,7 @@ export default function User(props) {
 
                 <Route
                   path="/"
-                  element={<Navigate to="/user" replace />}
+                  element={<Navigate to="/" replace />}
                 />
               </Routes>
             </div>

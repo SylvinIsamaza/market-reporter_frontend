@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import toast from "react-hot-toast"
 import { useDispatch } from "react-redux"
-import { authenticate, changePassword, login, logout, register, resetPassword, sendResetCode, verifyOTP } from "../api/auth"
+import { authenticate, changePassword, login, logout, register, resetPassword, sendResetCode, updateProfile, verifyOTP } from "../api/auth"
 import { useNavigate } from "react-router-dom"
 export const useSignup =() => {
   const dispatch = useDispatch()
@@ -131,6 +131,21 @@ export const useSendResetPasswordCode = () => {
     mutationFn: sendResetCode,
     onSuccess: () => {
       toast.success("Reset code sent successfully")
+    },
+    onError: (error) => {
+      console.log(error)
+      toast.error(error.response.data.message)
+    }
+  })
+}
+
+
+export const useUpdateProfile = () => {
+  return useMutation({
+    mutationKey: ["update-profile"],
+    mutationFn: updateProfile,
+    onSuccess: () => {
+      toast.success("Profile updated successfully")
     },
     onError: (error) => {
       console.log(error)
