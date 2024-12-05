@@ -1,21 +1,25 @@
 import React from "react";
 import Dropdown from "@/components/dropdown";
 import { FiAlignJustify } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navbarimage from "@/assets/img/layout/Navbar.png";
 import { BsArrowBarUp } from "react-icons/bs";
 import { FiSearch } from "react-icons/fi";
 import { RiMoonFill, RiSunFill } from "react-icons/ri";
-import {
-  IoMdNotificationsOutline,
-  IoMdInformationCircleOutline,
-} from "react-icons/io";
-import avatar from "@/assets/img/avatars/avatar4.png";
+
+
+import { useAuth,useLogout } from "@/hooks/auth";
 
 const Navbar = (props) => {
+  const { data,isLoading, isError,error } = useAuth();
   const { onOpenSidenav, brandText } = props;
   const [darkmode, setDarkmode] = React.useState(false);
-
+  const {mutate:logout}=useLogout()
+const navigate=useNavigate("")
+  const handleLogout = async() => {
+    await logout()
+    navigate("/login")
+  };
   return (
     <nav className="sticky top-4 z-40 flex flex-row flex-wrap items-center justify-between rounded-xl bg-white/10 p-2 backdrop-blur-xl dark:bg-[#0b14374d]">
       <div className="ml-[6px]">
@@ -63,8 +67,8 @@ const Navbar = (props) => {
           button={
             <img
               className="h-10 w-10 rounded-full"
-              src={avatar}
-              alt="Elon Musk"
+              src={data?.profileImg?data.profileImg:"/default-avatar.svg"}
+              alt="Profile"
             />
           }
           children={
@@ -72,31 +76,27 @@ const Navbar = (props) => {
               <div className="p-4">
                 <div className="flex items-center gap-2">
                   <p className="text-sm font-bold text-navy-700 dark:text-white">
-                    👋 Hey, Adela
+                    👋 Hey {data?.firstName}
                   </p>{" "}
                 </div>
               </div>
               <div className="h-px w-full bg-gray-200 dark:bg-white/20 " />
 
               <div className="flex flex-col p-4">
-                <a
+                <Link to={`/${window.location.pathname.includes("user")?"user":"admin"}/profile`}
                   href=" "
                   className="text-sm text-gray-800 dark:text-white hover:dark:text-white"
                 >
                   Profile Settings
-                </a>
-                <a
+                </Link>
+               
+                <button
+                  onClick={handleLogout}
                   href=" "
-                  className="mt-3 text-sm text-gray-800 dark:text-white hover:dark:text-white"
-                >
-                  Newsletter Settings
-                </a>
-                <a
-                  href=" "
-                  className="mt-3 text-sm font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
+                  className="mt-3 text-sm text-start font-medium text-red-500 hover:text-red-500 transition duration-150 ease-out hover:ease-in"
                 >
                   Log Out
-                </a>
+                </button>
               </div>
             </div>
           }

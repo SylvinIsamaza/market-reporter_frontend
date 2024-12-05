@@ -17,18 +17,7 @@ function AdminProtectedRoutes({ children }) {
     
   }
   if (!isLoading && (data ? data : {}).role !== "admin"&&!isError) {
-    navigate("/user-dashboard")
-  }
-  if (data) {
-    console.log(data)
-    return (
-      <div>
-    {children}
-      </div>
-        
-      
-    
-    )
+    navigate("/user/dashboard")
   }
 
   return (

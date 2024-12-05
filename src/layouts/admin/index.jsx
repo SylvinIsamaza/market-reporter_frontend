@@ -65,7 +65,7 @@ export default function Admin(props) {
       <div className="h-full min-h-[100vh] w-full bg-lightPrimary dark:!bg-navy-900">
         {/* Main Content */}
         <main
-          className={`mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
+          className={`md:mx-[12px] h-full flex-none transition-all md:pr-2 xl:ml-[313px]`}
         >
           {/* Routes */}
           <div className="h-full">
@@ -76,7 +76,7 @@ export default function Admin(props) {
               secondary={getActiveNavbar(routes)}
               {...rest}
             />
-            <div className="pt-5s mx-auto mb-auto  p-2 md:pr-2">
+            <div className="pt-5s lg:mx-auto mb-auto  md:p-2 md:pr-2">
               <Routes>
                 {getRoutes(routes)}
 

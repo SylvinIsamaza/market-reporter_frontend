@@ -10,7 +10,7 @@ const EditProfile = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [profileImage, setProfileImage] = useState(null);  // Change to store file
+  const [profileImage, setProfileImage] = useState(null);  
 
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -111,7 +111,7 @@ const EditProfile = () => {
         return;
       }
 
-      setProfileImage(file);  // Store the file directly
+      setProfileImage(file); 
     }
   };
 

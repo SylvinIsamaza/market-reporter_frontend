@@ -40,7 +40,8 @@ const TransactionTable = ({ title, error, transactions, hidePagination }) => {
   };
 
   return (
-    <div className="mx-auto bg-white dark:bg-navy-700 p-[20px] rounded-xl border dark:border-none shadow text-white w-full mt-8 ">
+    
+    <div className="mx-auto bg-white dark:bg-navy-700 p-[20px]  rounded-xl border dark:border-none shadow text-white w-full mt-8 ">
       <div className="sm:flex sm:items-center sm:justify-between flex-col sm:flex-row">
         <p className="flex-1 pt-[10px] px-[20px] text-[28px] text-base font-bold text-gray-900 dark:text-white">
           {title}
@@ -56,8 +57,8 @@ const TransactionTable = ({ title, error, transactions, hidePagination }) => {
         </div>
       </div>
 
-      <div className="mt-6 overflow-hidden ">
-        <table className="min-w-full border-separate border-spacing-y-2 border-spacing-x-2">
+      <div className="mt-6  overflow-hidden ">
+        <table className="md:min-w-full w-fit border-separate border-spacing-y-2 border-spacing-x-2">
           <thead className="hidden border-b lg:table-header-group">
             <tr>
               <td className="whitespace-normal py-4 text-sm text-gray-800 dark:text-white font-semibold sm:px-6">

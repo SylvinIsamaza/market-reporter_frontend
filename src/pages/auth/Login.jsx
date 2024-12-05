@@ -12,13 +12,9 @@ const Login = () => {
   const handleLogin = () => {
     login(
       { email, password },
-      {
-        onSuccess: () => {
-          navigate("/user/dashboard");
-        },
-      }
+      
     );
-    // navigate("/user-dashboard")
+    
   };
   return (
     <AuthLayout>

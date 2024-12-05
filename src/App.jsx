@@ -36,14 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />}></Route>
 
-        <Route
-          path="/user-dashboard"
-          element={
-            <ProtectedRoutes>
-              <UserDashboard />
-            </ProtectedRoutes>
-          }
-        ></Route>
+       
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
@@ -66,9 +59,12 @@ function App() {
         <Route
           path="/user/*"
           element={
+            <ProtectedRoutes>
+
             <UserLayout>
               <Dashboard />
             </UserLayout>
+            </ProtectedRoutes>
           }
         />
         <Route path="/change-password" element={<ChangePassword />}></Route>

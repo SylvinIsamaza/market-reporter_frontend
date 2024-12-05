@@ -17,7 +17,6 @@ import { interestedServices } from "../../data/static";
 import { useFetchTransaction } from "@/hooks/transaction";
 import TransactionTable from "@/components/table/TransactionTable";
 import { useFetchUserDashboardData } from "@/hooks/analytic";
-import { formatDateToCustomString } from "@/utils/formatter";
 
 const renovationOptions = [
   "TOTAL APARENTEMENTE SIN DAÑOS ESTRUCTURALES",
@@ -72,7 +71,6 @@ const MainSection = () => {
     pricePerMeter: "",
   };
   const [formData, setFormData] = useState(initialFormState);
-  console.log("reached here");
   const { mutate: createReport } = useCreateReport();
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

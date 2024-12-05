@@ -36,9 +36,9 @@ const General = () => {
   }
 
   return (
-    <div className="flex rounded-xl p-[20px] gap-[20px]">
+    <div className="flex flex-col rounded-xl md:p-[20px] gap-[20px]">
      
-      <div className="w-full flex flex-col gap-[20px]">
+      <div className="w-full flex lg:flex-row flex-col  gap-[20px]">
         <Card extra="items-center w-full h-full p-[16px] bg-cover">
           <div
             className="relative mt-1 flex h-[200px] w-full justify-center rounded-xl bg-cover"
@@ -73,11 +73,7 @@ const General = () => {
             </div>
           </div>
         </Card>
-        <ChangePassword />
-      </div>
-      <div className="flex flex-col gap-3 w-full items-center">
-        
-       <Card extra="w-full h-full p-3">
+        <Card extra="w-full h-full p-3">
         <div>
           <div className="mt-2 mb-8 w-full">
             <h4 className="px-2 text-xl font-bold text-navy-700 dark:text-white">
@@ -120,6 +116,11 @@ const General = () => {
           </div>
         </div>
         </Card>
+        
+      </div>
+      <div className="flex lg:flex-row flex-col gap-3 w-full items-center">
+      <ChangePassword />
+     
         <Card extra="items-center w-full h-full p-[16px] bg-cover">
           <div
             className="relative mt-1 flex h-[200px] w-full justify-center rounded-xl bg-cover"

@@ -10,11 +10,12 @@ export const useSignup =() => {
  return useMutation({
     mutationKey:["signup"],
     mutationFn:register,
-   onSuccess: () => {
+   onSuccess: (data) => {
+     toast.success("Successfully registered")
       navigate("/verify-otp")
     },
     onError: (error) => {
-     
+     toast.error(error.response.data.message)
     }
     
   })
@@ -22,13 +23,23 @@ export const useSignup =() => {
 }
 
 export const useLogin =() => {
-  
+  const navigate=useNavigate()
  return useMutation({
     mutationKey:["login"],
     mutationFn:login,
     onError: (error) => {
      toast.error(error.message)
+   },
+   onSuccess: (data) => {
+   toast.success("Login Successful")
+    if (data.role == "common") {
+      
+      navigate("/user/dashboard");
     }
+    else {
+      navigate("/admin/dashboard")
+    }
+  },
     
   })
   
@@ -55,7 +66,7 @@ export const useAuth = () => {
  return useQuery({
     queryKey:["authenticate"],
     queryFn: authenticate,
-   retry: 1,
+   retry: 0,
    cacheTime: 1000 * 60 * 10,
    staleTime: 1000 * 60 * 5,  
     

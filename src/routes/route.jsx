@@ -11,6 +11,7 @@ import {
 } from "react-icons/md";
 import Transaction from "@/pages/Transaction";
 import EditProfile from "@/pages/admin/profile/components/EditProfile";
+import NotFound from "@/pages/NotFound";
 
 const routes = [
   {
@@ -41,6 +42,12 @@ const routes = [
     icon: <MdPerson className="h-6 w-6" />,
     component: <EditProfile />,
   },
+  {
+    name: "Not found",
+    layout: "/",
+    path: "/*",
+    components:<NotFound/>
+  }
 
 ];
 export default routes;

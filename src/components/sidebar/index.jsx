@@ -7,7 +7,7 @@ import { useAuth } from "@/hooks/auth";
 
 const Sidebar = ({ open, onClose,routes}) => {
   const {data:user} = useAuth()
-  console.log(user)
+ 
  
   return (
     <div
