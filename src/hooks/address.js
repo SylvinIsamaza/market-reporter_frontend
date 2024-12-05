@@ -11,7 +11,7 @@ export function useFetchProvincias() {
     async function fetchProvinces() {
       try {
         const response = await axios.get(
-          "http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias"
+          "https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias"
         );
         const provinceData = response.data.consulta_provincieroResult.provinciero.prov;
        
@@ -42,7 +42,7 @@ export function useFetchMunicipios(province) {
       async function fetchMunicipios() {
         try {
           const response = await axios.get(
-            `http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia=${province.toUpperCase()}`
+            `https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerMunicipios?Provincia=${province.toUpperCase()}`
           );
           const municipioData = response.data.consulta_municipieroResult.municipiero.muni;
           
@@ -75,7 +75,7 @@ export function useFetchCallejero(province, municipio) {
       async function fetchStreets() {
         try {
           const response = await axios.get(
-            `http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerCallejero?Provincia=${province.toUpperCase()}&Municipio=${municipio.toUpperCase()}`
+            `https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerCallejero?Provincia=${province.toUpperCase()}&Municipio=${municipio.toUpperCase()}`
           );
           const calleData = response.data.consulta_callejeroResult.callejero.calle;
           
