@@ -15,16 +15,23 @@ const Header = () => {
       
       navigate("/", { replace: false });
       setTimeout(() => {
+        console.log(id)
         scrollToSection(id); 
       }, 100);
+      scrollToSection(id);
+    }
+    else {
+      
       scrollToSection(id);
     }
     setIsMobileMenuOpen(false); 
   };
 
   const scrollToSection = (id) => {
+    console.log(id)
     const section = document.getElementById(id);
     if (section) {
+      
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
