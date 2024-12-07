@@ -30,7 +30,8 @@ export const login = async (signupData) => {
     
     return response.data
   } catch (error) {
-    throw error;
+
+    throw new Error(error.response.data.message)
   }
 };
 
