@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AuthLayout from "../../layouts/AuthLayout";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/auth";
 import Spinner from "@/components/Spinner";
 
@@ -46,9 +46,9 @@ const Login = () => {
               <input type="checkbox" />
               <span>Recuérdame</span>
             </div>
-            <span className="text-sm text-primary font-semibold">
+            <Link to={"/reset-password"} className="text-sm text-primary font-semibold">
               ¿Olvidaste tu contraseña?
-            </span>
+            </Link>
           </div>
         </div>
 

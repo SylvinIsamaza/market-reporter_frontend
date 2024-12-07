@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Card from "@/components/card";
 import { MdEdit } from "react-icons/md";
 import { useChangePassword } from "@/hooks/auth";
+import toast from "react-hot-toast";
 
 function ChangePassword() {
   const [activateChangePassword, setActivateChangePassword] = useState(false);
@@ -68,7 +69,7 @@ function ChangePassword() {
         currentPassword,
         newPassword,
       });
-      console.log(response);
+      toast.success("Password changed successfully");
     } catch (error) {
       setError(error.message);
     }

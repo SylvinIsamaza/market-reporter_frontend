@@ -3,8 +3,10 @@ import Youtube from "../../assets/icons/youtube.png";
 import Instagram from "../../assets/icons/instagram.png";
 import Telegram from "../../assets/icons/telegram.png";
 import Twitter from "../../assets/icons/twitter.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  
   return (
     <div className="py-8 flex flex-col gap-8 justify-between items-center">
       <div className="flex  w-full justify-center">
@@ -17,10 +19,11 @@ const Footer = () => {
         </div>
       </div>
       <div className="md:flex-row flex flex-col   items-center gap-4 text-secondary">
-        <span>Términos y condiciones</span>
-        <span>Aviso legal</span>
-        <span>Política de cookies</span>
-        <span>Contactos</span>
+        <Link className="hover:scale-[1.03]" to={"/terms"}>Términos y condiciones</Link>
+        <Link className="hover:scale-[1.03]" to={"/legal-notice"}>Aviso legal</Link>
+        <Link className="hover:scale-[1.03]" to={"/cookie-policy"}>Política de cookies</Link>
+        <Link className="hover:scale-[1.03]" to={"/contact"}>Contacto</Link>
+
       </div>
     </div>
   );

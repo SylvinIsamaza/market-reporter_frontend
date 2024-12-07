@@ -30,15 +30,15 @@ const Planes = () => {
   ];
 
   return (
-    <div id="Planes" className="flex w-full flex-col items-center justify-center gap-14 py-16 px-4">
+    <div id="Planes" className="flex w-full flex-col items-center justify-center gap-14 py-16 px-6">
       <span className="text-3xl font-semibold text-center">
         Planes de precios
       </span>
 
       
-      <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-[10px] w-fit md:gap-14">
+      <div className="grid px- grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-[10px] w-full   md:gap-14">
         
-        <div className="hover:border-primary  transition hover:border-2 border border-secondary cursor-pointer flex flex-col  bg-white py-10 px-6 rounded-md w-full justify-between max-w-[500px] 2xl:w-[22rem]">
+        <div className="hover:border-primary  transition hover:border-2 border border-secondary cursor-pointer flex flex-col  bg-white py-10 px-6 rounded-md w-full justify-between max-w-[500px] 2xl:w-[21rem]">
           <div className="flex flex-col gap-3">
             <h2 className="text-2xl font-semibold">Básico</h2>
             <span className="text-secondary">1 informe completo</span>

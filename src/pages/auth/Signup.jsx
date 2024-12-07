@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSignup } from "../../hooks/auth";
 import AuthLayout from "../../layouts/AuthLayout";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import Spinner from "@/components/Spinner";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -37,16 +38,16 @@ const Signup = () => {
         <h2 className="text-2xl font-semibold text-center">Registro</h2>
         <div className="flex flex-col py-3 gap-5">
           <div className="flex flex-col gap-2">
-            <label className="font-semibold">Nombres:</label>
+            <label className="font-semibold">Telefono</label>
             <input
               onChange={(e) => setPhone(e.target.value)} 
               type="text"
               className="outline-none rounded-md border px-4 py-3"
-              placeholder="Juan Pérez"
+              placeholder="Telefono"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label className="font-semibold">Full NAME:</label>
+            <label className="font-semibold">Nombres:</label>
             <input
               onChange={(e) => setName(e.target.value)} 
               type="text"

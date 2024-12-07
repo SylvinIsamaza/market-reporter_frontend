@@ -67,7 +67,7 @@ const navigate=useNavigate("")
           button={
             <img
               className="h-10 w-10 rounded-full"
-              src={data?.profileImg?data.profileImg:"/default-avatar.svg"}
+              src={(data?.profileImg&&!data.profileImg.includes("avatar_default"))?data.profileImg:"/default-avatar.svg"}
               alt="Profile"
             />
           }

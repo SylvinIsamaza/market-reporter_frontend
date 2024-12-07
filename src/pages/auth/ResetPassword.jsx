@@ -45,7 +45,7 @@ const ResetPassword = () => {
           onClick={handleResetPassword}
           className="rounded-md gap-[10px] bg-primary flex items-center justify-center text-white p-4 font-semibold"
         >
-          {isPending && <Spinner />} Continue
+          {isPending && <Spinner />} continuar
         </button>
         <span className="text-center">
           ¿Ya tienes una cuenta?{" "}

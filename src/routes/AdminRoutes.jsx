@@ -10,7 +10,7 @@ function AdminProtectedRoutes({ children }) {
     return <div className='w-full h-screen bg-white'>Loading...</div>;
   }
   if (isError&&!isLoading) {  
-    console.log(error)
+    
     toast.error(error.response?.data?.message|"Something went wrong")
     navigate("/login")
     return;

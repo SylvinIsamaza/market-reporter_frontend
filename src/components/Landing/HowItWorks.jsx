@@ -15,7 +15,7 @@ const HowItWorks = () => {
       <span className="text-3xl text-center font-semibold">
         ¿Cómo funciona?
       </span>
-      <div className="flex items-center justify-center relative min-[900px]:w-[65%] w-full h-[40rem] overflow-hidden rounded-lg cursor-pointer">
+      <div className="flex  lg:px-[100px] items-center justify-center relative min-[900px]:w-[65%] w-full h-[40rem] overflow-hidden rounded-lg cursor-pointer">
         <AdvancedVideo
           cldVid={cld.video("intro_cz6xup").quality("auto")}
           controls={true}

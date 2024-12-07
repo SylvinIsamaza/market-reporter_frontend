@@ -9,7 +9,7 @@ function PdfViewer() {
     return <div>Loading...</div>;
   }
 
-  console.log(error)
+
 
   const pdfUrl = `http://localhost:5000${report.reportUrl}`;
 

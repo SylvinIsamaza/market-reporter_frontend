@@ -22,6 +22,10 @@ import NotFound from "@/pages/NotFound";
 import ChangePassword from "@/pages/ChangePassword";
 import PdfViewer from "@/pages/PdfViewer";
 import AdminProtectedRoutes from "@/routes/AdminRoutes";
+import Terms from "@/pages/terms/Terms";
+import Legal from "@/pages/legal/Legal";
+import CookiePolicy from "@/pages/cookiePolicy/CookiePolicy";
+import Contact from "@/pages/Contact";
 
 function App() {
   const { mutate: initVisitor, isLoading } = useInitVisitor();
@@ -36,8 +40,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />}></Route>
 
-       
+        <Route path="/contact" element={<Contact />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/terms" element={<Terms />}></Route>
+        <Route path="/legal-notice" element={<Legal />}></Route>
+        <Route path="/cookie-policy" element={<CookiePolicy />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/reset-password" element={<ResetPassword />}></Route>
         <Route path="/verify-otp" element={<VerifyOtp />}></Route>

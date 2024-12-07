@@ -8,7 +8,7 @@ export const useCreateReport = () => {
     mutationKey:["generateReport"],
    mutationFn: addReport,
    onSuccess: (data) => {
-     console.log(data)
+    
      navigate(`/view-pdf/?url=http://localhost:5000${data.reportUrl }`)
    },
     

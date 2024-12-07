@@ -35,7 +35,7 @@ const PaymentForm = ({ clientSecret }) => {
       setCardError(error.message);
       setIsLoading(false);
     } else {
-      console.log("Payment successful");
+     
       navigate("/payment-success");
     }
   };

@@ -17,6 +17,7 @@ import { interestedServices } from "../../data/static";
 import { useFetchTransaction } from "@/hooks/transaction";
 import TransactionTable from "@/components/table/TransactionTable";
 import { useFetchUserDashboardData } from "@/hooks/analytic";
+import toast from "react-hot-toast";
 
 const renovationOptions = [
   "TOTAL APARENTEMENTE SIN DAÑOS ESTRUCTURALES",
@@ -163,7 +164,7 @@ const MainSection = () => {
   if (reportError) {
     return <div>Error: {reportError.message}</div>;
   }
-  console.log(reports);
+
 
   const handleSubmit = async (e) => {
     if (currentStep != 4) {
@@ -200,7 +201,7 @@ const MainSection = () => {
             servicesThatMayInterestYou: services,
           });
         } catch (err) {
-          console.log(error.message);
+          toast.error(error.message)
         }
       }
     }

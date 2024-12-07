@@ -11,8 +11,9 @@ export const useSignup =() => {
     mutationKey:["signup"],
     mutationFn:register,
    onSuccess: (data) => {
+   
      toast.success("Successfully registered")
-      navigate("/verify-otp")
+      navigate("/verify-otp?next=/select-plan")
     },
     onError: (error) => {
      toast.error(error.response.data.message)
@@ -98,7 +99,7 @@ export const useChangePassword = () => {
       toast.success("Password changed successfully")
     },
     onError: (error) => {
-      console.log(error)
+   
       toast.error(error.response.data.message)
     }
   })
@@ -113,7 +114,7 @@ export const useSendResetCode = () => {
       toast.success("Reset code sent successfully")
     },
     onError: (error) => {
-      console.log(error)
+     
       toast.error(error.response.data.message)
     }
   })
@@ -144,7 +145,7 @@ export const useSendResetPasswordCode = () => {
       toast.success("Reset code sent successfully")
     },
     onError: (error) => {
-      console.log(error)
+     
       toast.error(error.response.data.message)
     }
   })
@@ -159,7 +160,7 @@ export const useUpdateProfile = () => {
       toast.success("Profile updated successfully")
     },
     onError: (error) => {
-      console.log(error)
+      
       toast.error(error.response.data.message)
     }
   })

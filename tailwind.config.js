@@ -238,7 +238,7 @@ module.exports = {
       "lg-max": { max: "992px" },
       xl: "1200px",
       "xl-max": { max: "1200px" },
-      "2xl": "1320px",
+      "2xl": "1420px",
       "2xl-max": { max: "1320px" },
       "3xl": "1600px",
       "3xl-max": { max: "1600px" },

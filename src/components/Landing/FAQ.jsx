@@ -6,32 +6,32 @@ const FAQ = () => {
     {
       question: "¿Cómo puedo generar un informe inmobiliario?",
       answer:
-        "Para generar un informe, simplemente inicie sesión en su cuenta, seleccione la propiedad de interés y elija el tipo de informe. El sistema procesará y generará el informe basado en los datos más recientes.",
+        "Para generar un informe, simplemente inicia sesión en tu cuenta (Con créditos de informe disponibles) , introduce la dirección de la vivienda de interés o/y la referencia catastral y procede. El sistema procesará y generará el informe automáticamente. Si quieres descubrir más acerca del funcionamiento de la web puedes consultar videotutoriales en nuestra lista de reproducción de youtube en el siguiente enlace: (https://www.youtube.com/playlist?list=PLTEP2tRaQO8X_bKT-B5vEtZuRE428wnUm)",
     },
     {
       question: "¿Puedo personalizar mi plan de suscripción?",
       answer:
-        "Sí, puede personalizar su plan de suscripción para incluir la cantidad de informes que necesite cada mes. Ajuste su plan en cualquier momento a través de su panel de usuario.",
+        "Puedes actualizar tu plan de casapi al que más se adapte a tus necesidades entre los disponibles.",
     },
     {
       question: "¿Qué métodos de pago se aceptan?",
       answer:
-        "Aceptamos varios métodos de pago, incluidos PayPal, Stripe y las principales tarjetas de crédito, garantizando un proceso de pago seguro y conveniente.",
+        "Los cobros se procesan por “Stripe” que acepta las principales tarjetas de crédito, garantizando un proceso de pago seguro y conveniente.",
     },
     {
       question: "¿Cómo puedo convertirme en afiliado?",
       answer:
-        "Para convertirse en afiliado, regístrese a través de nuestra página del programa de afiliados. Recibirá un enlace único para promocionar nuestros servicios y ganar comisiones por cada venta realizada a través de su referencia.",
+        "Al registrarte automáticamente te generamos un enlace de afiliación que puedes decidir usar para compartir con tus conocidos, lo encontrarás en tu perfil de usuario. Si quieres saber más acerca de nuestro programa de afiliados puedes consultarlo en terminos y condiciones en el apartado 6.",
     },
     {
       question: "¿Cómo puedo obtener soporte al cliente?",
       answer:
-        "Puede comunicarse con nuestro equipo de soporte al cliente a través de correo electrónico. Estamos aquí para ayudarle con cualquier pregunta o problema que pueda tener.",
+        "Puedes enviarnos un correo a (casapi@inmoemprende.es) y te atenderemos lo antes posible.",
     },
     {
       question: "¿Puedo descargar mis informes generados?",
       answer:
-        "¡Por supuesto! Todos los informes generados se pueden descargar de manera segura y almacenar en su dispositivo. Acceda a ellos en cualquier momento a través de su panel de usuario.",
+        "¡Por supuesto! Todos los informes generados se pueden descargar de manera segura y almacenar en tu dispositivo.",
     },
   ];
 

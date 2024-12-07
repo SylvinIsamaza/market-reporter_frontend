@@ -26,7 +26,7 @@ function ProtectedRoutes({ children }) {
   if (!data) {
     
     navigate('/login');
-    console.log("returned")
+    
     return null;
   }
 

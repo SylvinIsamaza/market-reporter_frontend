@@ -37,7 +37,7 @@ export const login = async (signupData) => {
 export const authenticate = async () => {
   try {
     const response = await client.get("/auth", { withCredentials: true });
-    console.log(response);
+ 
     return response.data.user;
   } catch (error) {
     throw error;
@@ -49,7 +49,7 @@ export const logout = async () => {
     const response = await client.post("/auth/logout", {
       withCredentials: true,
     });
-console.log(Cookies.get("estatio"))
+
     await Cookies.remove("estatio");
     return response.data.message;
   } catch (error) {
@@ -58,7 +58,7 @@ console.log(Cookies.get("estatio"))
 };
 
 export const verifyOTP = async (data) => {
-  console.log(data);
+ 
   try {
     if (data.next == "change-password") {
       const response = await client.post("/auth/verify-reset-otp", data, {
@@ -76,7 +76,7 @@ export const verifyOTP = async (data) => {
   }
 };
 export const verifyResetOTP = async (data) => {
-  console.log(data);
+ 
   try {
     const response = await client.post("/auth/verify-reset-otp", data, {
       withCredentials: true,

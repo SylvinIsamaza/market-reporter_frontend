@@ -38,7 +38,7 @@ const Payment = () => {
             withCredentials: true,
           }
         );
-        console.log(response.status)
+     
        
 
         setClientSecret(response.data.client_secret);

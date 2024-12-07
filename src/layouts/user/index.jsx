@@ -43,10 +43,10 @@ export default function User(props) {
           routes[i].layout + "/" + routes[i].path
         ) !== -1
       ) {
-        console.log(routes)
+      
         setCurrentRoute(routes[i].name);
       }
-      console.log(activeRoute)
+     
     }
     return activeRoute;
   };

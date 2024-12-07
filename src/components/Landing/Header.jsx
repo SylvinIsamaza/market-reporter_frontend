@@ -15,7 +15,7 @@ const Header = () => {
       
       navigate("/", { replace: false });
       setTimeout(() => {
-        console.log(id)
+       
         scrollToSection(id); 
       }, 100);
       scrollToSection(id);
@@ -28,7 +28,7 @@ const Header = () => {
   };
 
   const scrollToSection = (id) => {
-    console.log(id)
+   
     const section = document.getElementById(id);
     if (section) {
       

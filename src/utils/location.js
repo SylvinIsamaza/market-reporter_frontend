@@ -5,7 +5,7 @@ async function getProvincias(req, res, next) {
     const response = await axios.get("https://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCallejero.svc/json/ObtenerProvincias");
    
     const data = await response.data;
-    console.log(data)
+   
 const provinces=[]
     const provinceData = data.consulta_provincieroResult.provinciero.prov
     if (provinceData && provinceData.length > 0) {
