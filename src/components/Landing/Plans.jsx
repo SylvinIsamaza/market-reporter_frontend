@@ -35,10 +35,11 @@ const Planes = () => {
         Planes de precios
       </span>
 
-      
-      <div className="grid px- grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-[10px] w-full   md:gap-14">
+      <div className="flex justify-center items-center">
+
+      <div className="grid px- grid-cols-1 md:grid-cols-2 2xl:grid-cols-4  gap-[10px] md:gap-[30px]  w-fit">
         
-        <div className="hover:border-primary  transition hover:border-2 border border-secondary cursor-pointer flex flex-col  bg-white py-10 px-6 rounded-md w-full justify-between max-w-[500px] 2xl:w-[21rem]">
+        <div className="hover:border-primary  transition hover:border-2 border border-secondary cursor-pointer flex flex-col  bg-white py-10 px-6 rounded-md w-full justify-between max-w-[500px] 2xl:w-[22rem]">
           <div className="flex flex-col gap-3">
             <h2 className="text-2xl font-semibold">Básico</h2>
             <span className="text-secondary">1 informe completo</span>
@@ -128,6 +129,7 @@ const Planes = () => {
             Seleccionar plan
           </button>
         </div>
+      </div>
       </div>
     </div>
   );
