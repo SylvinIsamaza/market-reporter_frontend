@@ -2,6 +2,9 @@ import { IoCheckmarkSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
 const Planes = () => {
+  const handleSelectPlan = (planType) => {
+    navigate(`/payment?plan=${planType}`);
+  };
   const navigate = useNavigate();
   const basicPlanFeatures = [
     "Propiedades comparativas",
@@ -37,14 +40,14 @@ const Planes = () => {
 
       <div className="flex justify-center items-center">
 
-      <div className="grid px- grid-cols-1 md:grid-cols-2 2xl:grid-cols-4  gap-[10px] md:gap-[30px]  w-fit">
+      <div className="grid px- grid-cols-1 md:grid-cols-2 2xl:flex flex-wrap  gap-[10px] md:gap-[30px] ">
         
         <div className="hover:border-primary  transition hover:border-2 border border-secondary cursor-pointer flex flex-col  bg-white py-10 px-6 rounded-md w-full justify-between max-w-[500px] 2xl:w-[22rem]">
           <div className="flex flex-col gap-3">
             <h2 className="text-2xl font-semibold">Básico</h2>
             <span className="text-secondary">1 informe completo</span>
           </div>
-          <span className="text-5xl font-semibold">24,90€</span>
+          <span className="text-5xl font-semibold">14,99€</span>
           <div className="flex flex-col gap-3">
             {basicPlanFeatures.map((el, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -54,7 +57,7 @@ const Planes = () => {
             ))}
           </div>
           <button
-            onClick={() => navigate("/payment")}
+            onClick={() => navigate("/payment?plan=basic")}
             className="p-4 font-semibold bg-primary text-white rounded-md"
           >
             Seleccionar plan
@@ -67,7 +70,7 @@ const Planes = () => {
             <h2 className="text-2xl font-semibold">Ahorro</h2>
             <span className="text-secondary">5 informes completos</span>
           </div>
-          <span className="text-5xl font-semibold">74,90€</span>
+          <span className="text-5xl font-semibold">59,99€</span>
           <div className="flex flex-col gap-3">
             {savingPlanFeatures.map((el, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -77,7 +80,7 @@ const Planes = () => {
             ))}
           </div>
           <button
-            onClick={() => navigate("/payment")}
+            onClick={() => navigate("/payment?plan=saving")}
             className="p-4 font-semibold bg-primary text-white rounded-md"
           >
             Seleccionar plan
@@ -90,7 +93,7 @@ const Planes = () => {
             <h2 className="text-2xl font-semibold">Profesional</h2>
             <span>25 informes completos/mes</span>
           </div>
-          <span className="text-5xl font-semibold">149,90€/mes</span>
+          <span className="text-5xl font-semibold">124,99€/mes</span>
           <div className="flex flex-col gap-3">
             {professionalPlanFeatures.map((el, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -100,7 +103,7 @@ const Planes = () => {
             ))}
           </div>
           <button
-            onClick={() => navigate("/payment")}
+            onClick={() => navigate("/payment?plan=professional")}
             className="p-4 font-semibold bg-white text-primary rounded-md"
           >
             Seleccionar plan
@@ -113,7 +116,7 @@ const Planes = () => {
             <h2 className="text-2xl font-semibold">Empresarial</h2>
             <span className="text-secondary">50 informes completos/mes</span>
           </div>
-          <span className="text-5xl font-semibold">290,90€/mes</span>
+          <span className="text-5xl font-semibold">249,99€/mes</span>
           <div className="flex flex-col gap-3">
             {businessPlanFeatures.map((el, index) => (
               <div key={index} className="flex items-center gap-2">
@@ -123,7 +126,7 @@ const Planes = () => {
             ))}
           </div>
           <button
-            onClick={() => navigate("/payment")}
+            onClick={() => navigate("/payment?plan=business")}
             className="p-4 font-semibold bg-primary text-white rounded-md"
           >
             Seleccionar plan

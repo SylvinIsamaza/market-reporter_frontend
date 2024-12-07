@@ -45,7 +45,7 @@ const General = () => {
             style={{ backgroundImage: `url(${banner})` }}
           >
             <div className="absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-pink-400 dark:!border-navy-700">
-              <img className="h-full w-full rounded-full" src={data?.profileImg} alt="Avatar" />
+              <img className="h-full w-full rounded-full" src={(data?.profileImg&&!data.profileImg.includes("avatar_default"))?data.profileImg:"/default-avatar.svg"} alt="Avatar" />
             </div>
           </div>
 

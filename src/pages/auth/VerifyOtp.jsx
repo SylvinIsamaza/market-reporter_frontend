@@ -26,10 +26,7 @@ const VerifyOtp = () => {
         onSuccess: () => {
           navigate(nextRoute);
         },
-        onError: (error) => {
-          alert("Error al verificar el OTP. Inténtalo de nuevo.");
-          console.error(error);
-        },
+       
       }
     );
     }

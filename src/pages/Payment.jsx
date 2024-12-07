@@ -22,7 +22,7 @@ const Payment = () => {
 
   useEffect(() => {
     const plan = searchParams.get("plan");
-    const credits = searchParams.get("amount");
+
     const subscriptionType = searchParams.get("subscriptionType");
 
     const createPaymentIntent = async () => {
@@ -31,8 +31,8 @@ const Payment = () => {
         const response = await client.post(
           "/payment/create-payment-intent",
           {
-            plan: subscriptionType !== "" ? subscriptionType + plan : "" + plan,
-            credits: credits,
+            plan: plan,
+           
           },
           {
             withCredentials: true,

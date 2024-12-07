@@ -56,7 +56,7 @@ export const useVerifyOTP =() => {
       navigate("/select-plan")
      },
      onError: (error) => {
-      toast.error(error.message)
+      toast.error(error.response.data.message)
      }
      
    })

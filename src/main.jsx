@@ -11,12 +11,12 @@ import pdfjs from "pdfjs-dist";
 pdfjs.GlobalWorkerOptions.workerSrc = "https://d2v5g.csb.app/pdf.worker.js";
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  // <StrictMode>
     <QueryClientProvider client={queryClient}>
     <Provider store={store}>
         <App />
         <Toaster/>
     </Provider>
     </QueryClientProvider>
-  </StrictMode>
+  // </StrictMode>
 );

@@ -43,13 +43,11 @@ export const generateTransactionKeys = (array1, array2) => {
 
 export function getReadablePlanName(planName) {
   const planMap = {
-    monthlybasic: "Monthly Basic",
-    onetimebasic: "One-Time Basic",
-    monthlypremium: "Monthly Premium",
-    onetimepremium: "One-Time Premium",
-    credits: "Credits",
-    creditspremium: "Credits Premium",
-    creditsbasic: "Credits Basic"
+    basic: "Basic",
+    saving: "Saving",
+    business: "Business",
+    profession: "Professional",
+       
   };
 
   return planMap[planName] || "Unknown Plan";

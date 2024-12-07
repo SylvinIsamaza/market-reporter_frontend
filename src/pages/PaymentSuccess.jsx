@@ -58,7 +58,7 @@ const PaymentSuccess = () => {
           <span className="">Payment completed successfully!</span>
         </div>
         <div className="flex flex-col gap-4">
-          <span className="text-5xl font-semibold py-8">${paymentDetails.amount}</span>
+          <span className="text-5xl font-semibold py-8">{paymentDetails.amount} €</span>
           <div className="flex items-center justify-between">
             <span className="font-semibold">Payment Code</span>
             <span className="text-secondary">{paymentDetails.paymentIntentId}</span>
@@ -73,10 +73,10 @@ const PaymentSuccess = () => {
           </div>
           <div className="flex items-center justify-between">
             <span className="font-semibold">Plan</span>
-            <span className="text-secondary">{paymentDetails.paymentType}</span>
+            <span className="text-secondary">{paymentDetails.subscription.name}</span>
           </div>
           <button
-            onClick={() => navigate("/user-dashboard")}
+            onClick={() => navigate("/user/dashboard")}
             className="p-4 bg-primary text-white rounded-md mt-5 font-semibold"
           >
             Continue
